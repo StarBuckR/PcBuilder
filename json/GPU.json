@@ -1,0 +1,302 @@
+{
+    "https://gpu.userbenchmark.com/SpeedTest/1300600/NVIDIA-Quadro-RTX-A6000":{
+        "Gameplay Benchmark": 187,
+        "Desktop Benchmark": 187,
+        "Workstation Benchmark": 187,
+        "Price": 3700
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-3090/Rating/4081":{
+        "Gameplay Benchmark": 206,
+        "Desktop Benchmark": 103,
+        "Workstation Benchmark": 208,
+        "Price": 1499
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/664199/NVIDIA-TITAN-RTX":{
+        "Gameplay Benchmark": 167,
+        "Desktop Benchmark": 92,
+        "Workstation Benchmark": 293,
+        "Price": 1999
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/762332/NVIDIA-Quadro-RTX-8000":{
+        "Gameplay Benchmark": 161,
+        "Desktop Benchmark": 92,
+        "Workstation Benchmark": 282,
+        "Price": ""
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-3080/Rating/4080":{
+        "Gameplay Benchmark": 164,
+        "Desktop Benchmark": 94,
+        "Workstation Benchmark": 167,
+        "Price": 699
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/736712/NVIDIA-Quadro-RTX-6000":{
+        "Gameplay Benchmark": 118,
+        "Desktop Benchmark": 70,
+        "Workstation Benchmark": 145,
+        "Price": ""
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2080-Ti/Rating/4027":{
+        "Gameplay Benchmark": 176,
+        "Desktop Benchmark": 108,
+        "Workstation Benchmark": 176,
+        "Price": 1343
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/395529/NVIDIA-TITAN-V":{
+        "Gameplay Benchmark": 144,
+        "Desktop Benchmark": 91,
+        "Workstation Benchmark": 145,
+        "Price": 2999
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/265423/NVIDIA-TITAN-Xp":{
+        "Gameplay Benchmark": 131,
+        "Desktop Benchmark": 99,
+        "Workstation Benchmark": 119,
+        "Price": 1485
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/187394/NVIDIA-Quadro-P6000":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 69,
+        "Workstation Benchmark": 96,
+        "Price": 2399
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1080-Ti/Rating/3918":{
+        "Gameplay Benchmark": 127,
+        "Desktop Benchmark": 99,
+        "Workstation Benchmark": 116,
+        "Price": 800
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2080S-Super/Rating/4050":{
+        "Gameplay Benchmark": 118,
+        "Desktop Benchmark": 94,
+        "Workstation Benchmark": 120,
+        "Price": 970
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2080/Rating/4026":{
+        "Gameplay Benchmark": 123,
+        "Desktop Benchmark": 102,
+        "Workstation Benchmark": 117,
+        "Price": 800
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/1188513/NVIDIA-GeForce-RTX-2080-Super":{
+        "Gameplay Benchmark": 101,
+        "Desktop Benchmark": 92,
+        "Workstation Benchmark": 91,
+        "Price": ""
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2070S-Super/Rating/4048":{
+        "Gameplay Benchmark": 102,
+        "Desktop Benchmark": 94,
+        "Workstation Benchmark": 104,
+        "Price": 567
+    },
+    "https://gpu.userbenchmark.com/AMD-Radeon-VII/Rating/4035":{
+        "Gameplay Benchmark": 97,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 92,
+        "Price": 699
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2070/Rating/4029":{
+        "Gameplay Benchmark": 93,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 88,
+        "Price": 500
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-5700-XT/Rating/4045":{
+        "Gameplay Benchmark": 83,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 87,
+        "Price": 390
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1080/Rating/3603":{
+        "Gameplay Benchmark": 92,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 87,
+        "Price": 450
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2060S-Super/Rating/4049":{
+        "Gameplay Benchmark": 87,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 82,
+        "Price": 450
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-Vega-64/Rating/3933":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 80,
+        "Price": 400
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1070-Ti/Rating/3943":{
+        "Gameplay Benchmark": 84,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 80,
+        "Price": 350
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/716215/NVIDIA-Quadro-RTX-4000":{
+        "Gameplay Benchmark": 71,
+        "Desktop Benchmark": 82,
+        "Workstation Benchmark": 61,
+        "Price": ""
+    },
+    "https://gpu.userbenchmark.com/AMD-Vega-Frontier-Edition/Rating/3929":{
+        "Gameplay Benchmark": 75,
+        "Desktop Benchmark": 85,
+        "Workstation Benchmark": 84,
+        "Price": ""
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-5700/Rating/4046":{
+        "Gameplay Benchmark": 71,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 74,
+        "Price": 380
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-5600-XT/Rating/4062":{
+        "Gameplay Benchmark": 70,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 73,
+        "Price": 290
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-Vega-56/Rating/3938":{
+        "Gameplay Benchmark": 77,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 73,
+        "Price": 395
+    },
+    "https://gpu.userbenchmark.com/Nvidia-RTX-2060/Rating/4034":{
+        "Gameplay Benchmark": 76,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 72,
+        "Price": 387
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1070/Rating/3609":{
+        "Gameplay Benchmark": 71,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 67,
+        "Price": 400
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-Titan-X/Rating/3282":{
+        "Gameplay Benchmark": 67,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 60,
+        "Price": 1115
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1660S-Super/Rating/4056":{
+        "Gameplay Benchmark": 64,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 61,
+        "Price": 240
+    },
+    "https://gpu.userbenchmark.com/AMD-R9-Fury-X/Rating/3498":{
+        "Gameplay Benchmark": 62,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 59,
+        "Price": 781
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-590/Rating/4033":{
+        "Gameplay Benchmark": 54,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 50,
+        "Price": 200
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1660/Rating/4038":{
+        "Gameplay Benchmark": 54,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 50,
+        "Price": 230
+    },
+    "https://gpu.userbenchmark.com/AMD-R9-Fury/Rating/3509":{
+        "Gameplay Benchmark": 58,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 55,
+        "Price": 400
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1650S-Super/Rating/4058":{
+        "Gameplay Benchmark": 51,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 47,
+        "Price": 200
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-5500-XT/Rating/4060":{
+        "Gameplay Benchmark": 45,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 47,
+        "Price": 210
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-5500/Rating/4059":{
+        "Gameplay Benchmark": 49,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 47,
+        "Price": 169
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-Titan-Black/Rating/3158":{
+        "Gameplay Benchmark": 50,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 45,
+        "Price": 730
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-580/Rating/3923":{
+        "Gameplay Benchmark": 50,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 46,
+        "Price": 219
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1060-6GB/Rating/3639":{
+        "Gameplay Benchmark": 54,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 51,
+        "Price": 250
+    },
+    "https://gpu.userbenchmark.com/SpeedTest/58413/AMD-Radeon-TM-R9-Fury":{
+        "Gameplay Benchmark": 43,
+        "Desktop Benchmark": 78,
+        "Workstation Benchmark": 33,
+        "Price": 450
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1060-3GB/Rating/3646":{
+        "Gameplay Benchmark": 47,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 44,
+        "Price": 248
+    },
+    "https://gpu.userbenchmark.com/AMD-R9-390X/Rating/3497":{
+        "Gameplay Benchmark": 50,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 43,
+        "Price": 340
+    },
+    "https://gpu.userbenchmark.com/AMD-R9-290X/Rating/2166":{
+        "Gameplay Benchmark": 50,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 43,
+        "Price": 340
+    },
+    "https://gpu.userbenchmark.com/AMD-RX-570/Rating/3924":{
+        "Gameplay Benchmark": 44,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 41,
+        "Price": 142
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1650/Rating/4039":{
+        "Gameplay Benchmark": 39,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 36,
+        "Price": 152
+    },
+    "https://gpu.userbenchmark.com/AMD-R9-380X/Rating/3532":{
+        "Gameplay Benchmark": 31,
+        "Desktop Benchmark": 73,
+        "Workstation Benchmark": 27,
+        "Price": 246
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1050-Ti/Rating/3649":{
+        "Gameplay Benchmark": 27,
+        "Desktop Benchmark": 79,
+        "Workstation Benchmark": 25,
+        "Price": 146
+    },
+    "https://gpu.userbenchmark.com/Nvidia-GTX-1050/Rating/3650":{
+        "Gameplay Benchmark": 22,
+        "Desktop Benchmark": 74,
+        "Workstation Benchmark": 20,
+        "Price": 128
+    }
+}
