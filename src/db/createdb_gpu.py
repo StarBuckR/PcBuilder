@@ -74,7 +74,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
 
 for gpu in gpus:
-    if gpu["URL"] in json_file and json_file[gpu["URL"]]["Price"]:
+    if gpu["URL"] in json_file and gpu["Price"]:
         post = {"Brand": gpu["Brand"],
                 "Model": gpu["Model"],
                 "URL": gpu["URL"],
@@ -82,7 +82,7 @@ for gpu in gpus:
                 "Gameplay Benchmark": json_file[gpu["URL"]]["Gameplay Benchmark"],
                 "Desktop Benchmark": json_file[gpu["URL"]]["Desktop Benchmark"],
                 "Workstation Benchmark": json_file[gpu["URL"]]["Workstation Benchmark"],
-                "Price": json_file[gpu["URL"]]["Price"]
+                "Price": gpu["Price"]
                 }
 
         posts = db.GPU
