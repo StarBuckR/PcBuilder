@@ -51,7 +51,7 @@ def hdd_model_and_price_parser():
 
             row["Storage"] = storage
             row["Model"] = final_model
-            
+
             full_url = price_url_base + row["Brand"] + " " + model
             full_url = full_url.replace(" ", "%20")
             # get models price from another script
@@ -62,7 +62,8 @@ def hdd_model_and_price_parser():
                 hdds.append(row)
         except(RuntimeError):
             print("error:" + model)
-
+    driver.quit()
+    
 hdd_model_and_price_parser()
 
 # open mongo client and insert data one by one

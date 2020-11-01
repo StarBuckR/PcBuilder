@@ -10,7 +10,8 @@ def download_csv(type):
         file_path = "./csv/" + type + ".csv"
         print(file_path)
         file = requests.get(full_url, allow_redirects=True)
-        
+
+        os.makedirs("./csv/", exist_ok=True)
         with open(file_path, "wb") as f:
             f.write(file.content)
     except(RuntimeError):
@@ -24,8 +25,10 @@ def download_gecko_driver():
         with open("./gecko.zip", "wb") as f:
             for chunk in file.iter_content(chunk_size=128):
                 f.write(chunk)
-
+        
+        #os.makedirs("./driver/")
         with zipfile.ZipFile("./gecko.zip", 'r') as zip_ref:
             zip_ref.extractall("./driver/")
+        os.remove("./gecko.zip")
     except(RuntimeError):
         print(RuntimeError)

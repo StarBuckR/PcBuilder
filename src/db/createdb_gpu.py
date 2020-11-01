@@ -23,6 +23,10 @@ with open('./csv/GPU.csv', newline='') as f:
     reader = csv.DictReader(f)
     gpu_csv_file = list(reader)
 
+if not os.path.exists('./driver/geckodriver.exe'):
+    import download_file as df
+    df.download_gecko_driver()
+
 with open('./json/GPU.json') as f:
     json_file = json.load(f)
 
@@ -38,7 +42,7 @@ def dict_search():
         if any(x in row["Model"] for x in nvidia_keywords) and \
                 not any(y in row["Model"] for y in nvidia_forbidden_keywords):
             # number is if model contains any number, eg. 1080 Ti, it gets that number and checks if its outdated model number
-            number = [int(s) for s in row["Model"].split() if s.isnumber()]
+            number = [int(s) for s in row["Model"].split() if s.isnumeric()]
             if (number != [] and number[0] < 1000):
                 del row
                 continue
@@ -47,7 +51,7 @@ def dict_search():
         # this code block is filtering models by given keywords.
         if any(x in row["Model"] for x in amd_keywords):
             # number is if model contains any number, eg. 1080 Ti, it gets that number and checks if its outdated model number
-            number = [int(s) for s in row["Model"].split() if s.isnumber()]
+            number = [int(s) for s in row["Model"].split() if s.isnumeric()]
             if (number != [] and number[0] < 500 and number[0] > 64):
                 del row
                 continue
@@ -66,7 +70,8 @@ def dict_search():
         if price:
             row["Price"] = price
             gpus.append(row)
-
+    driver.quit()
+    
 dict_search()
 
 # open mongo client and insert data one by one
