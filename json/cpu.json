@@ -1,0 +1,595 @@
+{
+
+"https://cpu.userbenchmark.com/SpeedTest/929964/IntelR-CoreTM-i9-9900KS-CPU---400GHz":{
+        "Gameplay Benchmark": 102,
+        "Desktop Benchmark": 102,
+        "Workstation Benchmark": 103
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i9-10900K/Rating/4071":{
+        "Gameplay Benchmark": 103,
+        "Desktop Benchmark": 103,
+        "Workstation Benchmark": 112
+},
+"https://cpu.userbenchmark.com/SpeedTest/1255865/IntelR-CoreTM-i9-10850K-CPU---360GHz":{
+        "Gameplay Benchmark": 102,
+        "Desktop Benchmark": 101,
+        "Workstation Benchmark": 110
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1174369/IntelR-CoreTM-i9-10900KF-CPU---370GHz":{
+        "Gameplay Benchmark": 101,
+        "Desktop Benchmark": 101,
+        "Workstation Benchmark": 110
+},
+"https://cpu.userbenchmark.com/Intel-Core-i7-10700K/Rating/4070":{
+        "Gameplay Benchmark": 99,
+        "Desktop Benchmark": 100,
+        "Workstation Benchmark": 100
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/764533/IntelR-CoreTM-i9-9900KF-CPU---360GHz":{
+        "Gameplay Benchmark": 99,
+        "Desktop Benchmark": 99,
+        "Workstation Benchmark": 98
+},
+"https://cpu.userbenchmark.com/SpeedTest/1171560/IntelR-CoreTM-i7-10700KF-CPU---380GHz":{
+        "Gameplay Benchmark": 99,
+        "Desktop Benchmark": 100,
+        "Workstation Benchmark": 100
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1196789/IntelR-CoreTM-i9-10900F-CPU---280GHz":{
+        "Gameplay Benchmark": 99,
+        "Desktop Benchmark": 99,
+        "Workstation Benchmark": 104
+},
+"https://cpu.userbenchmark.com/Intel-Core-i9-9900K/Rating/4028":{
+        "Gameplay Benchmark": 99,
+        "Desktop Benchmark": 99,
+        "Workstation Benchmark": 98
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1169242/IntelR-CoreTM-i9-10900-CPU---280GHz":{
+        "Gameplay Benchmark":98,
+        "Desktop Benchmark": 99,
+        "Workstation Benchmark": 103
+},
+"https://cpu.userbenchmark.com/Intel-Core-i7-9700K/Rating/4030":{
+        "Gameplay Benchmark": 98,
+        "Desktop Benchmark": 98,
+        "Workstation Benchmark": 92
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1225152/IntelR-CoreTM-i5-10600KF-CPU---410GHz":{
+        "Gameplay Benchmark": 97,
+        "Desktop Benchmark": 98,
+        "Workstation Benchmark": 89
+},
+"https://cpu.userbenchmark.com/Intel-Core-i5-10600K/Rating/4072":{
+        "Gameplay Benchmark": 97,
+        "Desktop Benchmark": 98,
+        "Workstation Benchmark": 89
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/516988/IntelR-CoreTM-i7-8086K-CPU---400GHz":{
+        "Gameplay Benchmark": 96,
+        "Desktop Benchmark": 97,
+        "Workstation Benchmark": 87
+},
+"https://cpu.userbenchmark.com/Intel-Core-i7-10700/Rating/4077":{
+        "Gameplay Benchmark": 96,
+        "Desktop Benchmark": 97,
+        "Workstation Benchmark": 95
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1183814/IntelR-CoreTM-i7-10700F-CPU---290GHz":{
+        "Gameplay Benchmark": 95,
+        "Desktop Benchmark": 97,
+        "Workstation Benchmark": 95
+},
+"https://cpu.userbenchmark.com/SpeedTest/772658/IntelR-CoreTM-i5-9600KF-CPU---370GHz":{
+        "Gameplay Benchmark": 95,
+        "Desktop Benchmark": 96,
+        "Workstation Benchmark": 80
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-9600K/Rating/4031":{
+        "Gameplay Benchmark": 95,
+        "Desktop Benchmark": 95,
+        "Workstation Benchmark": 80
+},
+"https://cpu.userbenchmark.com/Intel-Core-i5-10600/Rating/4069":{
+        "Gameplay Benchmark": 94,
+        "Desktop Benchmark": 96,
+        "Workstation Benchmark": 86
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/816115/IntelR-CoreTM-i9-9900-CPU---310GHz":{
+        "Gameplay Benchmark": 94,
+        "Desktop Benchmark": 95,
+        "Workstation Benchmark": 92
+},
+"https://cpu.userbenchmark.com/SpeedTest/816132/IntelR-CoreTM-i7-9700F-CPU---300GHz":{
+        "Gameplay Benchmark": 94,
+        "Desktop Benchmark": 94,
+        "Workstation Benchmark": 87
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/816180/IntelR-CoreTM-i7-9700-CPU---300GHz":{
+        "Gameplay Benchmark": 94,
+        "Desktop Benchmark": 94,
+        "Workstation Benchmark": 87
+},
+"https://cpu.userbenchmark.com/Intel-Core-i7-8700K/Rating/3937":{
+        "Gameplay Benchmark": 94,
+        "Desktop Benchmark": 95,
+        "Workstation Benchmark": 85
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/853186/IntelR-CoreTM-i5-9600-CPU---310GHz":{
+        "Gameplay Benchmark": 93,
+        "Desktop Benchmark": 94,
+        "Workstation Benchmark": 77
+},
+"https://cpu.userbenchmark.com/Intel-Core-i5-8600K/Rating/3941":{
+        "Gameplay Benchmark": 92,
+        "Desktop Benchmark": 93,
+        "Workstation Benchmark": 77
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-10500/Rating/4078":{
+        "Gameplay Benchmark": 92,
+        "Desktop Benchmark": 93,
+        "Workstation Benchmark": 83
+},
+"https://cpu.userbenchmark.com/Intel-Core-i7-8700/Rating/3940":{
+        "Gameplay Benchmark": 90,
+        "Desktop Benchmark": 92,
+        "Workstation Benchmark": 81
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/825467/IntelR-CoreTM-i5-9500-CPU---300GHz":{
+        "Gameplay Benchmark": 90,
+        "Desktop Benchmark": 91,
+        "Workstation Benchmark": 75
+},
+"https://cpu.userbenchmark.com/SpeedTest/1180543/IntelR-CoreTM-i3-10320-CPU---380GHz":{
+        "Gameplay Benchmark": 90,
+        "Desktop Benchmark": 93,
+        "Workstation Benchmark": 76
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i3-9350KF/Rating/4055":{
+        "Gameplay Benchmark": 90,
+        "Desktop Benchmark": 95,
+        "Workstation Benchmark": 69
+},
+"https://cpu.userbenchmark.com/SpeedTest/1202614/AMD-Ryzen-9-3900XT-12-Core-Processor":{
+        "Gameplay Benchmark": 90,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 105
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-10400F/Rating/4079":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 80
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-10400/Rating/4073":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 81
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1218139/AMD-Ryzen-7-3800XT-8-Core-Processor":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 91,
+        "Workstation Benchmark": 92
+},
+"https://cpu.userbenchmark.com/SpeedTest/932085/IntelR-CoreTM-i9-10940X-CPU---330GHz":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 106
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/477251/IntelR-CoreTM-i5-8600-CPU---310GHz":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 74
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-9-3900X/Rating/4044":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 104
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-9-3950X/Rating/4057":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 115
+},
+"https://cpu.userbenchmark.com/SpeedTest/931866/IntelR-CoreTM-i9-10920X-CPU---350GHz":{
+        "Gameplay Benchmark": 89,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 102
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i7-6900K/Rating/3605":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 93,
+        "Workstation Benchmark": 74
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-3800X/Rating/4047":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 90
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i7-7700K/Rating/3647":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 92,
+        "Workstation Benchmark": 74
+},
+"https://cpu.userbenchmark.com/SpeedTest/969950/IntelR-CoreTM-i9-10900X-CPU---370GHz":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 95
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i3-10100F/Rating/4082":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 91,
+        "Workstation Benchmark": 73
+},
+"https://cpu.userbenchmark.com/Intel-Core-i3-10300/Rating/4074":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 91,
+        "Workstation Benchmark": 73
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/656219/IntelR-CoreTM-i9-9920X-CPU---350GHz":{
+        "Gameplay Benchmark": 87,
+        "Desktop Benchmark": 87,
+        "Workstation Benchmark": 100
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-3700X/Rating/4043":{
+        "Gameplay Benchmark": 88,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 89
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/641326/IntelR-CoreTM-i9-9940X-CPU---330GHz":{
+        "Gameplay Benchmark": 87,
+        "Desktop Benchmark": 87,
+        "Workstation Benchmark": 105
+},
+"https://cpu.userbenchmark.com/SpeedTest/735306/IntelR-CoreTM-i5-9400-CPU---290GHz":{
+        "Gameplay Benchmark": 87,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 72
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-9400F/Rating/4051":{
+        "Gameplay Benchmark": 87,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 72
+},
+"https://cpu.userbenchmark.com/SpeedTest/1211585/AMD-Ryzen-5-3600XT-6-Core-Processor":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 82
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/447884/IntelR-CoreTM-i5-8500-CPU---300GHz":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 88,
+        "Workstation Benchmark": 71
+},
+"https://cpu.userbenchmark.com/SpeedTest/310543/IntelR-CoreTM-i5-7640X-CPU---400GHz":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 92,
+        "Workstation Benchmark": 66
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/1218230/IntelR-CoreTM-i7-10700T-CPU---200GHz":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 82
+},
+"https://cpu.userbenchmark.com/SpeedTest/653060/IntelR-CoreTM-i9-9960X-CPU---310GHz":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 108
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i3-10100/Rating/4075":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 72
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-3600X/Rating/4041":{
+        "Gameplay Benchmark": 86,
+        "Desktop Benchmark": 87,
+        "Workstation Benchmark": 81
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-8400/Rating/3939":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 70
+},
+"https://cpu.userbenchmark.com/SpeedTest/357952/IntelR-CoreTM-i9-7960X-CPU---280GHz":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 85,
+        "Workstation Benchmark": 105
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/651256/IntelR-CoreTM-i7-9800X-CPU---380GHz":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 86
+},
+"https://cpu.userbenchmark.com/Intel-Core-i3-8350K/Rating/3935":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 90,
+        "Workstation Benchmark": 65
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/651318/IntelR-CoreTM-i9-9820X-CPU---330GHz":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 84,
+        "Workstation Benchmark": 91
+},
+"https://cpu.userbenchmark.com/SpeedTest/969111/AMD-Ryzen-Threadripper-3960X-24-Core-Processor":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 134
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/353078/IntelR-CoreTM-i9-7940X-CPU---310GHz":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 84,
+        "Workstation Benchmark": 100
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/935899/IntelR-CoreTM-i9-10980XE-CPU---300GHz":{
+        "Gameplay Benchmark": 84,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 109
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i9-7900X/Rating/3936":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 85,
+        "Workstation Benchmark": 91
+},
+"https://cpu.userbenchmark.com/SpeedTest/970030/AMD-Ryzen-Threadripper-3970X-32-Core-Processor":{
+        "Gameplay Benchmark": 84,
+        "Desktop Benchmark": 85,
+        "Workstation Benchmark": 153
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-3600/Rating/4040":{
+        "Gameplay Benchmark": 85,
+        "Desktop Benchmark": 87,
+        "Workstation Benchmark": 79
+},
+"https://cpu.userbenchmark.com/SpeedTest/652504/IntelR-CoreTM-i9-9980XE-CPU---300GHz":{
+        "Gameplay Benchmark": 84,
+        "Desktop Benchmark": 85,
+        "Workstation Benchmark": 109
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-3500X/Rating/4052":{
+        "Gameplay Benchmark": 84,
+        "Desktop Benchmark": 85,
+        "Workstation Benchmark": 72
+},
+"https://cpu.userbenchmark.com/Intel-Core-i5-7600K/Rating/3885":{
+        "Gameplay Benchmark": 83,
+        "Desktop Benchmark": 89,
+        "Workstation Benchmark": 64
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-3500/Rating/4053":{
+        "Gameplay Benchmark": 84,
+        "Desktop Benchmark": 84,
+        "Workstation Benchmark": 72
+},
+"https://cpu.userbenchmark.com/Intel-Core-i7-7820X/Rating/3928":{
+        "Gameplay Benchmark": 83,
+        "Desktop Benchmark": 84,
+        "Workstation Benchmark": 84
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/278103/IntelR-CoreTM-i9-7920X-CPU---350GHz":{
+        "Gameplay Benchmark": 83,
+        "Desktop Benchmark": 83,
+        "Workstation Benchmark": 94
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-2700X/Rating/3958":{
+        "Gameplay Benchmark": 83,
+        "Desktop Benchmark": 83,
+        "Workstation Benchmark": 83
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/352013/IntelR-CoreTM-i9-7980XE-CPU---260GHz":{
+        "Gameplay Benchmark": 82,
+        "Desktop Benchmark": 83,
+        "Workstation Benchmark": 105
+},
+"https://cpu.userbenchmark.com/SpeedTest/1035665/AMD-Ryzen-Threadripper-3990X-64-Core-Processor":{
+        "Gameplay Benchmark": 82,
+        "Desktop Benchmark": 82,
+        "Workstation Benchmark": 147
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/806339/IntelR-CoreTM-i3-9100-CPU---360GHz":{
+        "Gameplay Benchmark": 82,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 63
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-3-3300X/Rating/4076":{
+        "Gameplay Benchmark": 82,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 71
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i3-9100F/Rating/4054":{
+        "Gameplay Benchmark": 82,
+        "Desktop Benchmark": 86,
+        "Workstation Benchmark": 62
+},
+"https://cpu.userbenchmark.com/SpeedTest/304816/IntelR-CoreTM-i7-7800X-CPU---350GHz":{
+        "Gameplay Benchmark": 81,
+        "Desktop Benchmark": 82,
+        "Workstation Benchmark": 75
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/625966/AMD-Ryzen-Threadripper-2920X-12-Core-Processor":{
+        "Gameplay Benchmark": 80,
+        "Desktop Benchmark": 80,
+        "Workstation Benchmark": 91
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-2600X/Rating/3956":{
+        "Gameplay Benchmark": 80,
+        "Desktop Benchmark": 82,
+        "Workstation Benchmark": 74
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i7-7700/Rating/3887":{
+        "Gameplay Benchmark": 80,
+        "Desktop Benchmark": 83,
+        "Workstation Benchmark": 66
+},
+"https://cpu.userbenchmark.com/SpeedTest/484077/IntelR-CoreTM-i3-8300-CPU---370GHz":{
+        "Gameplay Benchmark": 80,
+        "Desktop Benchmark": 84,
+        "Workstation Benchmark": 60
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/569025/AMD-Ryzen-Threadripper-2950X-16-Core-Processor":{
+        "Gameplay Benchmark": 80,
+        "Desktop Benchmark": 79,
+        "Workstation Benchmark": 100
+},
+"https://cpu.userbenchmark.com/SpeedTest/626249/AMD-Ryzen-Threadripper-2970WX-24-Core-Processor":{
+        "Gameplay Benchmark": 79,
+        "Desktop Benchmark": 80,
+        "Workstation Benchmark": 110
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i5-7600/Rating/3890":{
+        "Gameplay Benchmark": 79,
+        "Desktop Benchmark": 84,
+        "Workstation Benchmark": 60
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-2600/Rating/3955":{
+        "Gameplay Benchmark": 78,
+        "Desktop Benchmark": 79,
+        "Workstation Benchmark": 71
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/560423/AMD-Ryzen-Threadripper-2990WX-32-Core-Processor":{
+        "Gameplay Benchmark": 77,
+        "Desktop Benchmark": 78,
+        "Workstation Benchmark": 121
+},
+"https://cpu.userbenchmark.com/Intel-Core-i3-8100/Rating/3942":{
+        "Gameplay Benchmark": 77,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 58
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-1800X/Rating/3916":{
+        "Gameplay Benchmark": 77,
+        "Desktop Benchmark": 77,
+        "Workstation Benchmark": 77
+},
+"https://cpu.userbenchmark.com/SpeedTest/340638/AMD-Ryzen-Threadripper-1900X-8-Core-Processor":{
+        "Gameplay Benchmark": 76,
+        "Desktop Benchmark": 77,
+        "Workstation Benchmark": 77
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-2700/Rating/3957":{
+        "Gameplay Benchmark": 76,
+        "Desktop Benchmark": 77,
+        "Workstation Benchmark": 75
+},
+"https://cpu.userbenchmark.com/Intel-Core-i5-7500/Rating/3648":{
+        "Gameplay Benchmark": 76,
+        "Desktop Benchmark": 80,
+        "Workstation Benchmark": 57
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-TR-1920X/Rating/3934":{
+        "Gameplay Benchmark": 76,
+        "Desktop Benchmark": 76,
+        "Workstation Benchmark": 85
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-TR-1950X/Rating/3932":{
+        "Gameplay Benchmark": 76,
+        "Desktop Benchmark": 76,
+        "Workstation Benchmark": 94
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-1600X/Rating/3920":{
+        "Gameplay Benchmark": 75,
+        "Desktop Benchmark": 76,
+        "Workstation Benchmark": 69
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-1700X/Rating/3915":{
+        "Gameplay Benchmark": 75,
+        "Desktop Benchmark": 75,
+        "Workstation Benchmark": 75
+},
+
+"https://cpu.userbenchmark.com/SpeedTest/567224/AMD-Ryzen-5-2500X-Quad-Core-Processor":{
+        "Gameplay Benchmark": 73,
+        "Desktop Benchmark": 77,
+        "Workstation Benchmark": 62
+},
+"https://cpu.userbenchmark.com/Intel-Core-i3-7350K/Rating/3889":{
+        "Gameplay Benchmark": 73,
+        "Desktop Benchmark": 83,
+        "Workstation Benchmark": 54
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-1600/Rating/3919":{
+        "Gameplay Benchmark": 72,
+        "Desktop Benchmark": 73,
+        "Workstation Benchmark": 66
+},
+"https://cpu.userbenchmark.com/Intel-Core-i3-7320/Rating/3888":{
+        "Gameplay Benchmark": 72,
+        "Desktop Benchmark": 82,
+        "Workstation Benchmark": 53
+},
+
+"https://cpu.userbenchmark.com/AMD-Ryzen-7-1700/Rating/3917":{
+        "Gameplay Benchmark": 72,
+        "Desktop Benchmark": 72,
+        "Workstation Benchmark": 71
+},
+"https://cpu.userbenchmark.com/Intel-Core-i5-7400/Rating/3886":{
+        "Gameplay Benchmark": 72,
+        "Desktop Benchmark": 76,
+        "Workstation Benchmark": 54
+},
+
+"https://cpu.userbenchmark.com/Intel-Core-i3-7300/Rating/3893":{
+        "Gameplay Benchmark": 71,
+        "Desktop Benchmark": 81,
+        "Workstation Benchmark": 52
+},
+"https://cpu.userbenchmark.com/AMD-Ryzen-5-1500X/Rating/3921":{
+        "Gameplay Benchmark": 69,
+        "Desktop Benchmark": 72,
+        "Workstation Benchmark": 59
+}
+
+}
