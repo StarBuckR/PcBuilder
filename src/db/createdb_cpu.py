@@ -43,7 +43,7 @@ def intel_chipset(model):
             no_oc = "H310,B365,B360,H370,Q370"
             pin = "LGA 1151"
             return oc, no_oc, pin
-        elif re.search("[-][7]", model) and (re.search("X", code) or re.search("XE", code)):
+        elif re.search("[-][7-9]", model) and (re.search("X", code) or re.search("XE", code)):
             oc = "X299"
             no_oc = "X299"
             pin = "LGA 2066"
@@ -120,10 +120,9 @@ def amd_chipset(model):
 with open('./csv/CPU.csv', newline='') as cpu_first_data:
     reader = csv.DictReader(cpu_first_data)
     cpu_csv_file = list(reader)
-    i = 0
+
     for i, cpu in enumerate(cpu_csv_file, start=1):
-        i = i + 1
-        if i <= 310:
+        if i <= 300:
             if (re.search("Ryzen", cpu["Model"])):
                 check = amd_chipset(cpu["Model"])
                 if check:
@@ -166,11 +165,11 @@ def cpu_price():
     driver.quit()
 
 cpu_price()
-
 client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
-for cpu in cpu_csv_file:
-    if cpu["URL"] in json_file and cpu["Price"]:
+
+for i, cpu in enumerate(cpu_csv_file, start=1):
+    if cpu["URL"] in json_file and cpu["Price"] and i <= 300 and cpu['Socket'] != "Unkown":
         post = {
             "Brand": cpu["Brand"],
             "Model": cpu["Model"],
