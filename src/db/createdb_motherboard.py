@@ -93,7 +93,7 @@ try:
                     "MHZ": int(json_file[motherboard["Name"]]["MHZ"]),
                     "Chipset": json_file[motherboard["Name"]]["Chipset"]
                     }
-            posts = db.motherboard
+            posts = db.MOTHERBOARD
             post_id = posts.insert_one(informations).inserted_id
 except(KeyError):
     print(KeyError)
