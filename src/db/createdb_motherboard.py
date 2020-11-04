@@ -38,8 +38,6 @@ for x in range(1, 7):
             continue
         row["Price"] = int(float(prc))
 
-        
-
         name = browser.find_elements_by_class_name('td__nameWrapper')
         name = name[x].text
         name = name.split("(")[0]
@@ -66,7 +64,6 @@ for x in range(1, 7):
         link = browser.find_elements_by_css_selector("a[href*='/product/']")
         mboardurl = link[x].get_attribute("href")
         row["URL"] = str(mboardurl)
-
 
         motherboards.append(row)
 
