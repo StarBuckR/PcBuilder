@@ -12,7 +12,7 @@ if not os.path.exists('./src/driver/geckodriver.exe'):
     import download_file as df
     df.download_gecko_driver()
 
-#browser = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
+#browser = webdriver.Chrome or
 browser = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
 
 with open("./json/motherboard.json") as f:
