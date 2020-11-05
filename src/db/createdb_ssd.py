@@ -26,18 +26,17 @@ def ssd_price():
     driver = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
     c = CurrencyConverter()
 
-    for i, row in enumerate(ssd_csv_file, start=1):
-        if i == 150:
-            break
+    for row in ssd_csv_file:
+        
         product = row["Brand"]+" "+row["Model"]
         product = re.sub("\s", "%20", product)
+        
         base_url = "https://pricespy.co.uk/search?search="
         last_url = base_url + product
+        
         price = get_price.get_price(driver, c, last_url)
         if price:
             row["Price"] = price
-        else:
-            row["Price"] = " "
     driver.quit()
 ssd_price()
 
@@ -67,8 +66,7 @@ def ssd_model_parser(data_set):
     except:
         pass  # if it's empty or it doesn't fit the pattern
 
-for i, data in enumerate(ssd_csv_file, start=1):
-    if i <= 150:
+for data in ssd_csv_file:
         try:
             check = ssd_model_parser(data["Model"])
             if check:
@@ -76,22 +74,15 @@ for i, data in enumerate(ssd_csv_file, start=1):
                 data["Model"] = model.strip()
                 data["Storage"] = storage.strip()
                 data["M2"] = m2
-                print(data)
-            else:
-                pass
         except:
-            print("There is a problem with data = " + data[3])
             pass
-    else:
-        break
+   
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
 
-for i, ssd in enumerate(ssd_csv_file, start=1):
-    if i == 150:
-        break
-    else:
+for ssd in ssd_csv_file:
+    try:
         if ssd["Price"]:
             post = {
                 "Brand": ssd["Brand"],
@@ -106,3 +97,5 @@ for i, ssd in enumerate(ssd_csv_file, start=1):
             posts = db.SSD
             print(post)
             post_id = posts.insert_one(post).inserted_id
+    except(KeyError):
+        print(KeyError)
