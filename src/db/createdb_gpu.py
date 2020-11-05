@@ -79,7 +79,10 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
 
 for gpu in gpus:
-    if gpu["URL"] in json_file and gpu["Price"]:
+    # price > 100 dollars because it can be mistaken single fan price or 
+    # that sort of stuff for real gpu. and their price is definitely lower
+    # than 100 dollars
+    if gpu["URL"] in json_file and gpu["Price"] and gpu["Price"] > 100:
         post = {"Brand": gpu["Brand"],
                 "Model": gpu["Model"],
                 "URL": gpu["URL"],

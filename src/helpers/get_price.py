@@ -8,7 +8,7 @@ from currency_converter import CurrencyConverter
 def get_price(driver, c, url):
     driver.get(url)
     try:
-        elements = WebDriverWait(driver, 3).until(
+        elements = WebDriverWait(driver, 2).until(
             EC.presence_of_all_elements_located((By.CLASS_NAME, 'PriceLabel-sc-7gzlos-0'))
         )
     except(TimeoutException):

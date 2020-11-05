@@ -9,7 +9,7 @@ import sys
 sys.path.insert(1, os.getcwd() +'./src/helpers/')
 import get_price
 
-if not os.path.exists('./csv/GPU.csv'):
+if not os.path.exists('./csv/RAM.csv'):
     import download_file as df
     df.download_csv("RAM")
 
@@ -23,7 +23,10 @@ with open('./csv/RAM.csv', newline='') as f:
 
 lists = []
 
-for row in data:              
+for row in data:
+    if "DDR3" in row["Model"]:
+        continue
+
     gb = row["Model"].split(" ")[-1]
     gb = gb.split("GB")[0]
     
@@ -36,15 +39,15 @@ for row in data:
     row["MHZ"] = str(mhz)
     lists.append(row)
 
+driver = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
+c = CurrencyConverter()
 def dict_search():
-    driver = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
-    c = CurrencyConverter()
     price_url_base = "https://pricespy.co.uk/search?search="
-    for row in data:
+    for row in lists:
         if int(row["Rank"]) > 126:
             break
 
-        full_url = price_url_base + row["Model"]
+        full_url = price_url_base + row["Model"] + " " + row["MHZ"] + " " + row["GB"]
         full_url = full_url.replace(" ", "%20")
         # get models price from another script
         price = get_price.get_price(driver, c, full_url)
@@ -55,21 +58,24 @@ def dict_search():
 
 dict_search()
 
+driver.quit()
+
 client = MongoClient('mongodb://localhost:27017/')
 db = client.PcBuilder
 
 for row in lists:
-    informations = {
-        "Brand": row["Brand"],   
-        "Model": row["Model"],
-        "Rank": row["Rank"],
-        "Url": row["URL"],
-        "Gb": row["GB"],
-        "CL": row["CL"],
-        "MHZ": row["MHZ"],
-        "Price:": row["Price"],
-        }
-    posts = db.ramm
-    post_id = posts.insert_one(informations).inserted_id
-
-
+    try:
+        informations = {
+            "Brand": row["Brand"],   
+            "Model": row["Model"],
+            "Rank": int(row["Rank"]),
+            "Url": row["URL"],
+            "Gb": row["GB"],
+            "CL": row["CL"],
+            "MHZ": int(row["MHZ"]),
+            "Price": int(row["Price"]),
+            }
+        posts = db.RAM
+        post_id = posts.insert_one(informations).inserted_id
+    except(KeyError):
+        print("KeyError")
