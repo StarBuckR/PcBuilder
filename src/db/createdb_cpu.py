@@ -43,7 +43,7 @@ def intel_chipset(model):
             no_oc = "H310,B365,B360,H370,Q370"
             pin = "LGA 1151"
             return oc, no_oc, pin
-        elif re.search("[-][7]", model) and (re.search("X", code) or re.search("XE", code)):
+        elif re.search("[-][7-9]", model) and (re.search("X", code) or re.search("XE", code)):
             oc = "X299"
             no_oc = "X299"
             pin = "LGA 2066"
@@ -165,7 +165,6 @@ def cpu_price():
     driver.quit()
 
 cpu_price()
-
 client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
 for i, cpu in enumerate(cpu_csv_file, start=1):

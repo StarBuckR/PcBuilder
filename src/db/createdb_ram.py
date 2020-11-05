@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import requests
 from currency_converter import CurrencyConverter
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 
 import sys
 sys.path.insert(1, os.getcwd() +'./src/helpers/')
