@@ -28,11 +28,18 @@ for row in data:
     if "DDR3" in row["Model"]:
         continue
 
+    is_exist = False
+    for e in lists:
+        if row["URL"] == e["URL"]:
+            is_exist = True
+    if is_exist:
+        continue
+
     gb = row["Model"].split(" ")[-1]
     gb = gb.split("GB")[0]
     
-    cl= row["Model"].split(" ")[-2]
-    mhz=row["Model"].split(" ")[-3]
+    cl = row["Model"].split(" ")[-2]
+    mhz = row["Model"].split(" ")[-3]
     row["Model"] = " ".join(row["Model"].split(" ")[:-3])
 
     row["GB"] = str(gb)
@@ -44,10 +51,8 @@ driver = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
 c = CurrencyConverter()
 def dict_search():
     price_url_base = "https://pricespy.co.uk/search?search="
+    
     for row in lists:
-        if int(row["Rank"]) > 126:
-            break
-
         full_url = price_url_base + row["Model"] + " " + row["MHZ"] + " " + row["GB"]
         full_url = full_url.replace(" ", "%20")
         # get models price from another script
@@ -55,8 +60,7 @@ def dict_search():
 
         if price:
             row["Price"] = price
-            lists.append(row)
-
+ 
 dict_search()
 
 driver.quit()

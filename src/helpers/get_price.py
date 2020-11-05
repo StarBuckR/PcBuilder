@@ -12,10 +12,10 @@ def get_price(driver, c, url):
             EC.presence_of_all_elements_located((By.CLASS_NAME, 'PriceLabel-sc-7gzlos-0'))
         )
     except(TimeoutException):
-        print("Timeout")
+        print(url + " Timeout")
         return ""
     finally:
-        print("Done")
+        print(url + " Done")
         
     if elements == []:
         return ""
