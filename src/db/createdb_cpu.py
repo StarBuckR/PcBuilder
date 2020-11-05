@@ -167,20 +167,21 @@ def cpu_price():
 cpu_price()
 client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
+
 for i, cpu in enumerate(cpu_csv_file, start=1):
     if cpu["URL"] in json_file and cpu["Price"] and i <= 300 and cpu['Socket'] != "Unkown":
-            post = {
-                "Brand": cpu["Brand"],
-                "Model": cpu["Model"],
-                "URL": cpu["URL"],
-                "Rank": int(cpu["Rank"]),
-                "Chipset OC": cpu["Chipset OC"],
-                "Chipset": cpu["Chipset"],
-                "Socket": cpu["Socket"],
-                "Gameplay Benchmark": json_file[cpu["URL"]]["Gameplay Benchmark"],
-                "Desktop Benchmark": json_file[cpu["URL"]]["Desktop Benchmark"],
-                "Workstation Benchmark": json_file[cpu["URL"]]["Workstation Benchmark"],
-                "Price": cpu["Price"]
-            }
-            posts = db.CPU
-            post_id = posts.insert_one(post).inserted_id
+        post = {
+            "Brand": cpu["Brand"],
+            "Model": cpu["Model"],
+            "URL": cpu["URL"],
+            "Rank": int(cpu["Rank"]),
+            "Chipset OC": cpu["Chipset OC"],
+            "Chipset": cpu["Chipset"],
+            "Socket": cpu["Socket"],
+            "Gameplay Benchmark": json_file[cpu["URL"]]["Gameplay Benchmark"],
+            "Desktop Benchmark": json_file[cpu["URL"]]["Desktop Benchmark"],
+            "Workstation Benchmark": json_file[cpu["URL"]]["Workstation Benchmark"],
+            "Price": cpu["Price"]
+        }
+        posts = db.CPU
+        post_id = posts.insert_one(post).inserted_id
