@@ -12,7 +12,7 @@ if not os.path.exists('./src/driver/geckodriver.exe'):
     import download_file as df
     df.download_gecko_driver()
 
-#browser = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
+#browser = webdriver.Chrome or
 browser = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
 
 with open("./json/motherboard.json") as f:
@@ -37,8 +37,6 @@ for x in range(1, 7):
         if prc == "":
             continue
         row["Price"] = int(float(prc))
-
-        
 
         name = browser.find_elements_by_class_name('td__nameWrapper')
         name = name[x].text
@@ -66,7 +64,6 @@ for x in range(1, 7):
         link = browser.find_elements_by_css_selector("a[href*='/product/']")
         mboardurl = link[x].get_attribute("href")
         row["URL"] = str(mboardurl)
-
 
         motherboards.append(row)
 
@@ -96,7 +93,7 @@ try:
                     "MHZ": int(json_file[motherboard["Name"]]["MHZ"]),
                     "Chipset": json_file[motherboard["Name"]]["Chipset"]
                     }
-            posts = db.motherboard
+            posts = db.MOTHERBOARD
             post_id = posts.insert_one(informations).inserted_id
 except(KeyError):
     print(KeyError)

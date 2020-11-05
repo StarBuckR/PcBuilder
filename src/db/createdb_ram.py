@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import requests
 from currency_converter import CurrencyConverter
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 
 import sys
 sys.path.insert(1, os.getcwd() +'./src/helpers/')
@@ -59,17 +60,21 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.PcBuilder
 
 for row in lists:
-    informations = {
-        "Brand": row["Brand"],   
-        "Model": row["Model"],
-        "Rank": row["Rank"],
-        "Url": row["URL"],
-        "Gb": row["GB"],
-        "CL": row["CL"],
-        "MHZ": row["MHZ"],
-        "Price:": row["Price"],
-        }
-    posts = db.ramm
-    post_id = posts.insert_one(informations).inserted_id
+    try: 
+        if row["Price"]:
+            informations = {
+                "Brand": row["Brand"],   
+                "Model": row["Model"],
+                "Rank": int(row["Rank"]),
+                "Url": row["URL"],
+                "Gb": row["GB"],
+                "CL": row["CL"],
+                "MHZ": int(row["MHZ"]),
+                "Price": row["Price"]
+                }
+            posts = db.RAM
+            post_id = posts.insert_one(informations).inserted_id
+    except(KeyError):
+        print("Error")
 
 
