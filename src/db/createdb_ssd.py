@@ -92,10 +92,9 @@ for ssd in ssd_csv_file:
                 "M2": ssd["M2"],
                 "Rank": int(ssd["Rank"]),
                 "Price": ssd["Price"],
-                "Benchmark": ssd["Benchmark"]
+                "Benchmark": float(ssd["Benchmark"])
             }
             posts = db.SSD
-            print(post)
             post_id = posts.insert_one(post).inserted_id
     except(KeyError):
         print(KeyError)
