@@ -37,13 +37,18 @@ for row in data:
 
     gb = row["Model"].split(" ")[-1]
     gb = gb.split("GB")[0]
-    
+    a = gb.split("x")[0]
+    b = gb.split("x")[-1]
+    GB = int(a)*int(b)
+
     cl = row["Model"].split(" ")[-2]
+    cl = cl.split("C")[-1]
     mhz = row["Model"].split(" ")[-3]
     row["Model"] = " ".join(row["Model"].split(" ")[:-3])
 
-    row["GB"] = str(gb)
-    row["CL"] = str(cl)
+    row["GB"] = gb
+    row["TOTALMEMORY"] = GB
+    row["CL"] = cl
     row["MHZ"] = str(mhz)
     lists.append(row)
 
@@ -76,7 +81,8 @@ for row in lists:
             "Rank": int(row["Rank"]),
             "Url": row["URL"],
             "Gb": row["GB"],
-            "CL": row["CL"],
+            "Total Memory" : int(row["TOTALMEMORY"]),
+            "CL": int(row["CL"]),
             "MHZ": int(row["MHZ"]),
             "Price": int(row["Price"]),
             }
