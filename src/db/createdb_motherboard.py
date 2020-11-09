@@ -47,6 +47,11 @@ for x in range(1, 7):
         sck = sck.replace("\n", "")
         row["Socket"] = sck
 
+        ATX = browser.find_elements_by_class_name('td__spec--2')
+        atx = ATX[x].get_attribute("innerText")
+        atx = atx.replace("\n", "")
+        row["Atx"] = atx
+
         maxram = browser.find_elements_by_class_name('td__spec--3')
         ram = maxram[x].get_attribute("innerText")
         ram = ram.split("Memory Max")[-1]
@@ -80,6 +85,7 @@ browser.quit()
 client = MongoClient('mongodb://localhost:27017/')
 db = client.PcBuilder
 try:
+    a = 1
     for motherboard in motherboards:
         if motherboard["Name"] in json_file:
             informations = {
@@ -90,9 +96,13 @@ try:
                     "Price": int(motherboard["Price"]),
                     "URL": motherboard["URL"],
                     "MHZ": int(json_file[motherboard["Name"]]["MHZ"]),
-                    "Chipset": json_file[motherboard["Name"]]["Chipset"]
-                    }
+                    "Chipset": json_file[motherboard["Name"]]["Chipset"],
+                    "Rank": a,
+                    "Atx" : motherboard["Atx"]
+                }
+            a += 1
             posts = db.MOTHERBOARD
             post_id = posts.insert_one(informations).inserted_id
+            
 except(KeyError):
     print(KeyError)
