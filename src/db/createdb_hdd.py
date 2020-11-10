@@ -49,6 +49,13 @@ def hdd_model_and_price_parser():
 
             final_model = temp[0]
 
+            if re.search("GB",storage):
+                temp_value = re.split("GB",storage)
+                storage = int(temp_value[0])
+            elif re.search("TB",storage):
+                temp_value = re.split("TB",storage)
+                storage = int(temp_value[0])*1000
+
             row["Storage"] = storage
             row["Model"] = final_model
 
@@ -76,7 +83,7 @@ for hdd in hdds:
                 "Model": hdd["Model"],
                 "URL": hdd["URL"],
                 "Rank": int(hdd["Rank"]),
-                "Storage": hdd["Storage"],
+                "Storage": int(hdd["Storage"]),
                 "Price": hdd["Price"]
                 }
 

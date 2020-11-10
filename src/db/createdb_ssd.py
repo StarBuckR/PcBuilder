@@ -71,6 +71,14 @@ for data in ssd_csv_file:
             check = ssd_model_parser(data["Model"])
             if check:
                 model, storage, m2 = ssd_model_parser(data["Model"])
+                
+                if re.search("GB",storage):
+                    temp_value = re.split("GB",storage)
+                    storage = int(temp_value[0])
+                elif re.search("TB",storage):
+                    temp_value = re.split("TB",storage)
+                    storage = int(temp_value[0])*1000
+                
                 data["Model"] = model.strip()
                 data["Storage"] = storage.strip()
                 data["M2"] = m2
@@ -88,7 +96,7 @@ for ssd in ssd_csv_file:
                 "Brand": ssd["Brand"],
                 "Model": ssd["Model"],
                 "URL": ssd["URL"],
-                "Storage": ssd["Storage"],
+                "Storage": int(ssd["Storage"]),
                 "M2": ssd["M2"],
                 "Rank": int(ssd["Rank"]),
                 "Price": ssd["Price"],
