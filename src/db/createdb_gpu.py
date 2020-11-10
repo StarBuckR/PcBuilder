@@ -83,7 +83,8 @@ for gpu in gpus:
     # that sort of stuff for real gpu. and their price is definitely lower
     # than 100 dollars
     if gpu["URL"] in json_file and gpu["Price"] and gpu["Price"] > 100:
-        post = {"Brand": gpu["Brand"],
+        post = {
+                "Brand": gpu["Brand"],
                 "Model": gpu["Model"],
                 "URL": gpu["URL"],
                 "Rank": int(gpu["Rank"]),
@@ -91,7 +92,7 @@ for gpu in gpus:
                 "Desktop Benchmark": json_file[gpu["URL"]]["Desktop Benchmark"],
                 "Workstation Benchmark": json_file[gpu["URL"]]["Workstation Benchmark"],
                 "Price": gpu["Price"]
-                }
+            }
 
         posts = db.GPU
         post_id = posts.insert_one(post).inserted_id

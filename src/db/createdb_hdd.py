@@ -79,13 +79,15 @@ db = client['PcBuilder']
 
 for hdd in hdds:
     if hdd["Price"]:
-        post = {"Brand": hdd["Brand"],
+        post = {
+                "Brand": hdd["Brand"],
                 "Model": hdd["Model"],
                 "URL": hdd["URL"],
                 "Rank": int(hdd["Rank"]),
                 "Storage": int(hdd["Storage"]),
-                "Price": hdd["Price"]
-                }
+                "Price": hdd["Price"],
+                "Benchmark": float(hdd["Benchmark"])
+            }
 
         posts = db.HDD
         post_id = posts.insert_one(post).inserted_id
