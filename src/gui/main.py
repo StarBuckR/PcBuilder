@@ -4,7 +4,7 @@ import os, sys
 if not os.path.exists('./config.json'):
     print("h")
     data = { "Initialized": False }
-    with open("./config.json", "wb") as f:
+    with open("./config.json", "w") as f:
         json.dump(data, f, indent=4)
 
 with open("./config.json", "r") as file:
