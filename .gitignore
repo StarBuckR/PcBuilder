@@ -136,3 +136,4 @@ dmypy.json
 
 # Temp
 src/gui/main_page.py
+sync.bat
