@@ -46,6 +46,7 @@ for row in data:
     mhz = row["Model"].split(" ")[-3]
     row["Model"] = " ".join(row["Model"].split(" ")[:-3])
 
+    row["RAM Count"] = a
     row["GB"] = gb
     row["TOTALMEMORY"] = GB
     row["CL"] = cl
@@ -81,6 +82,7 @@ for row in lists:
             "Rank": int(row["Rank"]),
             "Url": row["URL"],
             "Gb": row["GB"],
+            "RAM Count": int(row["RAM Count"]),
             "Total Memory" : int(row["TOTALMEMORY"]),
             "CL": int(row["CL"]),
             "MHZ": int(row["MHZ"]),
