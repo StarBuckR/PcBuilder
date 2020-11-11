@@ -7,6 +7,7 @@ csv/
 .log
 driver/
 config.json
+test.py
 
 # C extensions
 *.so
