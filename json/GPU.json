@@ -102,7 +102,7 @@
         "Price": 500
     },
     "https://gpu.userbenchmark.com/AMD-RX-5700-XT/Rating/4045":{
-        "Gameplay Benchmark": 83,
+        "Gameplay Benchmark": 92,
         "Desktop Benchmark": 88,
         "Workstation Benchmark": 87,
         "Price": 390
@@ -144,19 +144,19 @@
         "Price": ""
     },
     "https://gpu.userbenchmark.com/AMD-RX-5700/Rating/4046":{
-        "Gameplay Benchmark": 71,
+        "Gameplay Benchmark": 78,
         "Desktop Benchmark": 88,
         "Workstation Benchmark": 74,
         "Price": 380
     },
     "https://gpu.userbenchmark.com/AMD-RX-5600-XT/Rating/4062":{
-        "Gameplay Benchmark": 70,
+        "Gameplay Benchmark": 77,
         "Desktop Benchmark": 88,
         "Workstation Benchmark": 73,
         "Price": 290
     },
     "https://gpu.userbenchmark.com/AMD-RX-Vega-56/Rating/3938":{
-        "Gameplay Benchmark": 77,
+        "Gameplay Benchmark": 76,
         "Desktop Benchmark": 88,
         "Workstation Benchmark": 73,
         "Price": 395
@@ -216,13 +216,13 @@
         "Price": 200
     },
     "https://gpu.userbenchmark.com/AMD-RX-5500-XT/Rating/4060":{
-        "Gameplay Benchmark": 45,
+        "Gameplay Benchmark": 50,
         "Desktop Benchmark": 81,
         "Workstation Benchmark": 47,
         "Price": 210
     },
     "https://gpu.userbenchmark.com/AMD-RX-5500/Rating/4059":{
-        "Gameplay Benchmark": 49,
+        "Gameplay Benchmark": 50,
         "Desktop Benchmark": 88,
         "Workstation Benchmark": 47,
         "Price": 169

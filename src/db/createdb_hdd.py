@@ -36,7 +36,7 @@ def hdd_model_and_price_parser():
             
             # check if model contains XXXGB, XXTB or XTB in its name
             storage_size = re.findall('[0-9][0-9][0-9][G][B]', model) or re.findall('[0-9][0-9][T][B]', model) \
-                        or re.findall('[0-9][T][B]', model)
+                        or re.findall('[0-9][.][0-9][T][B]', model) or re.findall('[0-9][T][B]', model)
             if storage_size == []:
                 continue
 
@@ -54,7 +54,7 @@ def hdd_model_and_price_parser():
                 storage = int(temp_value[0])
             elif re.search("TB",storage):
                 temp_value = re.split("TB",storage)
-                storage = int(temp_value[0])*1000
+                storage = int(float(temp_value[0])*1000)
 
             row["Storage"] = storage
             row["Model"] = final_model
