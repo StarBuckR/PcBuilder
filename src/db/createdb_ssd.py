@@ -1,3 +1,4 @@
+import get_price
 import os
 import csv
 import requests
@@ -9,7 +10,6 @@ from pymongo import MongoClient
 
 import sys
 sys.path.insert(1, os.getcwd() + '/src/helpers/')
-import get_price
 
 if not os.path.exists('./csv/SSD.csv'):
     import download_file as df
@@ -22,23 +22,27 @@ with open('./csv/SSD.csv', newline='') as ssd_first_data:
     reader = csv.DictReader(ssd_first_data)
     ssd_csv_file = list(reader)
 
+
 def ssd_price():
     driver = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
     c = CurrencyConverter()
-    
+
     for row in ssd_csv_file:
         product = row["Brand"]+" "+row["Model"]
         product = re.sub("\s", "%20", product)
-        
+
         base_url = "https://pricespy.co.uk/search?search="
         last_url = base_url + product
-        
+
         price = get_price.get_price(driver, c, last_url)
         print(price)
         if price:
             row["Price"] = price
     driver.quit()
+
+
 ssd_price()
+
 
 def ssd_model_parser(data_set):
     try:
@@ -66,23 +70,17 @@ def ssd_model_parser(data_set):
     except:
         pass  # if it's empty or it doesn't fit the pattern
 
+
 for data in ssd_csv_file:
-        try:
-            check = ssd_model_parser(data["Model"])
-            if check:
-                model, storage, m2 = ssd_model_parser(data["Model"])
-                data["Model"] = model.strip()
-                data["Storage"] = storage.strip()
-                data["M2"] = m2
-            else:
-                print("Aha bu nonedır")
-        except:
-            print("Geçtim")
-            pass
-    
-        
-            
-   
+    try:
+        check = ssd_model_parser(data["Model"])
+        if check:
+            model, storage, m2 = ssd_model_parser(data["Model"])
+            data["Model"] = model.strip()
+            data["Storage"] = storage.strip()
+            data["M2"] = m2
+    except:
+        pass
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.PcBuilder
@@ -90,7 +88,7 @@ db = client.PcBuilder
 for ssd in ssd_csv_file:
     try:
         if ssd["Price"]:
-            
+
             post = {
                 "Brand": ssd["Brand"],
                 "Model": ssd["Model"],
@@ -107,14 +105,14 @@ for ssd in ssd_csv_file:
         continue
 
 for document in db.SSD.find():
-    temp_storage= document['Storage']
-    if re.search("GB",temp_storage):
-        temp_value = re.split("GB",temp_storage)
+    temp_storage = document['Storage']
+    if re.search("GB", temp_storage):
+        temp_value = re.split("GB", temp_storage)
         temp = int(temp_value[0])
-    elif re.search("TB",temp_storage):
-        temp_value = re.split("TB",temp_storage)
+    elif re.search("TB", temp_storage):
+        temp_value = re.split("TB", temp_storage)
         temp = int(temp_value[0])*1000
-    
-    new_values = {"$set":{'Storage': temp}}
+
+    new_values = {"$set": {'Storage': temp}}
     to_change = {"Storage": document['Storage']}
-    x = db.temp.update_one(to_change,new_values)
+    x = db.temp.update_one(to_change, new_values)
