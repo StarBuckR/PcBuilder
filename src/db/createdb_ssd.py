@@ -1,4 +1,3 @@
-import get_price
 import os
 import csv
 import requests
@@ -10,6 +9,7 @@ from pymongo import MongoClient
 
 import sys
 sys.path.insert(1, os.getcwd() + '/src/helpers/')
+import get_price
 
 if not os.path.exists('./csv/SSD.csv'):
     import download_file as df
