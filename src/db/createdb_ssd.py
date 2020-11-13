@@ -25,9 +25,8 @@ with open('./csv/SSD.csv', newline='') as ssd_first_data:
 def ssd_price():
     driver = webdriver.Firefox(executable_path="./driver/geckodriver.exe")
     c = CurrencyConverter()
-
+    
     for row in ssd_csv_file:
-        
         product = row["Brand"]+" "+row["Model"]
         product = re.sub("\s", "%20", product)
         
@@ -35,6 +34,7 @@ def ssd_price():
         last_url = base_url + product
         
         price = get_price.get_price(driver, c, last_url)
+        print(price)
         if price:
             row["Price"] = price
     driver.quit()
@@ -71,32 +71,31 @@ for data in ssd_csv_file:
             check = ssd_model_parser(data["Model"])
             if check:
                 model, storage, m2 = ssd_model_parser(data["Model"])
-                
-                if re.search("GB",storage):
-                    temp_value = re.split("GB",storage)
-                    storage = int(temp_value[0])
-                elif re.search("TB",storage):
-                    temp_value = re.split("TB",storage)
-                    storage = int(temp_value[0])*1000
-                
                 data["Model"] = model.strip()
                 data["Storage"] = storage.strip()
                 data["M2"] = m2
+            else:
+                print("Aha bu nonedır")
         except:
+            print("Geçtim")
             pass
+    
+        
+            
    
 
 client = MongoClient('mongodb://localhost:27017/')
-db = client['PcBuilder']
+db = client.PcBuilder
 
 for ssd in ssd_csv_file:
     try:
         if ssd["Price"]:
+            
             post = {
                 "Brand": ssd["Brand"],
                 "Model": ssd["Model"],
                 "URL": ssd["URL"],
-                "Storage": int(ssd["Storage"]),
+                "Storage": ssd["Storage"],
                 "M2": ssd["M2"],
                 "Rank": int(ssd["Rank"]),
                 "Price": ssd["Price"],
@@ -105,4 +104,17 @@ for ssd in ssd_csv_file:
             posts = db.SSD
             post_id = posts.insert_one(post).inserted_id
     except(KeyError):
-        print(KeyError)
+        continue
+
+for document in db.SSD.find():
+    temp_storage= document['Storage']
+    if re.search("GB",temp_storage):
+        temp_value = re.split("GB",temp_storage)
+        temp = int(temp_value[0])
+    elif re.search("TB",temp_storage):
+        temp_value = re.split("TB",temp_storage)
+        temp = int(temp_value[0])*1000
+    
+    new_values = {"$set":{'Storage': temp}}
+    to_change = {"Storage": document['Storage']}
+    x = db.temp.update_one(to_change,new_values)
