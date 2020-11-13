@@ -1,12 +1,12 @@
 class Percentage:
     # default values for gaming type pc
-    gpu = 28
+    gpu = 33
     cpu = 22
     ram = 10
-    motherboard = 15
+    motherboard = 12
     ssd = 10
     hdd = 5
-    psu_and_case = 10
+    psu_and_case = 8
 
     def __init__(self, gpu = gpu, cpu = cpu, ram = ram, motherboard = motherboard, ssd = ssd, hdd = hdd, psu_and_case = psu_and_case):
         self.gpu = gpu
