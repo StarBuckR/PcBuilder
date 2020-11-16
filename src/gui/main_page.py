@@ -60,72 +60,42 @@ class elementBuilder(QMainWindow):
 class MainWindow(elementBuilder):
 
     def storage_layout(self):
-        group = QGroupBox("STORAGE")
-        stg_l = QVBoxLayout()
-        stg_l.setSpacing(20)
-        stg_l.addWidget(self.label_b(
-            'Storage Size', 'Arial', 20, Qt.AlignLeft))
-        stg_l.addWidget(self.spinbox_b(
-            int(self.width/5), int(self.height/16)))
-        ssd = QRadioButton("ONLY SSD")
-        hdd = QRadioButton("ONLY HDD")
-        stg_l.addWidget(ssd)
-        stg_l.addWidget(hdd)
-        stg_l.addWidget(self.label_b(
-            'Price Percantage', 'Arial', 20, Qt.AlignLeft))
-        stg_l.addWidget(self.qlineE_b(int(self.width/5),
-                                      int(self.height/25), Qt.AlignLeft, QIntValidator()))
-        stg_l.setAlignment(Qt.AlignBottom)
+        group = QGroupBox("Storage Price Percantage")
+        stg_l = QVBoxLayout()       
+        stg_l.addWidget(self.qlineE_b(int(self.width/7),
+                                      int(self.height/40), Qt.AlignLeft, QIntValidator()))
         group.setLayout(stg_l)
         return group
 
     def mothearboard_layout(self):
-        group = QGroupBox("MOTHERBOARD")
+        group = QGroupBox("Motherboard Price Percantage")
         mb_l = QVBoxLayout()
-        mb_l.addWidget(self.label_b(
-            'Price Percantage', 'Arial', 20, Qt.AlignLeft))
-        mb_l.addWidget(self.qlineE_b(int(self.width/5),
-                                     int(self.height/25), Qt.AlignLeft, QIntValidator()))
-        mb_l.setAlignment(Qt.AlignBottom)
+        mb_l.addWidget(self.qlineE_b(int(self.width/7),
+                                     int(self.height/40), Qt.AlignLeft, QIntValidator()))
         group.setLayout(mb_l)
         return group
 
     def gpu_layout(self):
-        group = QGroupBox("GPU")
+        group = QGroupBox("GPU Price Percantage")
         gpu_l = QVBoxLayout()
-        gpu_l.addWidget(self.label_b('Brand', 'Arial', 20, Qt.AlignLeft))
-        gpu_l.addWidget(self.combob_builder(
-            int(self.width/5), int(self.height/16), ['Nvidia', 'AMD']))
-        gpu_l.addWidget(self.label_b(
-            'Price Percantage', 'Arial', 20, Qt.AlignLeft))
-        gpu_l.addWidget(self.qlineE_b(int(self.width/5),
-                                      int(self.height/25), Qt.AlignLeft, QIntValidator()))
-        gpu_l.setAlignment(Qt.AlignBottom)
+        gpu_l.addWidget(self.qlineE_b(int(self.width/7),
+                                      int(self.height/40), Qt.AlignLeft, QIntValidator()))
         group.setLayout(gpu_l)
         return group
 
     def cpu_layout(self):
         cpu_l = QVBoxLayout()
-        group = QGroupBox("CPU")
-        cpu_l.addWidget(self.label_b('Brand', 'Arial', 20, Qt.AlignLeft))
-        cpu_l.addWidget(self.combob_builder(
-            int(self.width/5), int(self.height/16), ['Intel', 'AMD']))
-        cpu_l.addWidget(self.label_b(
-            'Price Percantage', 'Arial', 20, Qt.AlignLeft))
-        cpu_l.addWidget(self.qlineE_b(int(self.width/5),
-                                      int(self.height/25), Qt.AlignLeft, QIntValidator()))
-        cpu_l.setAlignment(Qt.AlignBottom)
+        group = QGroupBox("CPU Price Percantage")
+        cpu_l.addWidget(self.qlineE_b(int(self.width/7),
+                                      int(self.height/40), Qt.AlignLeft, QIntValidator()))
         group.setLayout(cpu_l)
         return group
 
     def ram_layout(self):
         ram_l = QVBoxLayout()
-        group = QGroupBox("RAM")
-        ram_l.addWidget(self.label_b(
-            'Price Percantage', 'Arial', 20, Qt.AlignLeft))
-        ram_l.addWidget(self.qlineE_b(int(self.width/5),
-                                      int(self.height/25), Qt.AlignLeft, QIntValidator()))
-        ram_l.setAlignment(Qt.AlignBottom)
+        group = QGroupBox("RAM Price Percantage")
+        ram_l.addWidget(self.qlineE_b(int(self.width/7),
+                                      int(self.height/40), Qt.AlignLeft, QIntValidator()))
         group.setLayout(ram_l)
         return group
 
@@ -148,6 +118,26 @@ class MainWindow(elementBuilder):
         self.groupBox.setLayout(purpose)
         self.groupBox.setAlignment(Qt.AlignCenter)
         return self.groupBox
+    def additional(self):
+        group = QGroupBox('Additional')
+        additional = QHBoxLayout()
+        cpu = QVBoxLayout()
+        gpu = QVBoxLayout()
+        storage = QVBoxLayout()
+        cpu.addWidget(self.label_b('CPU Brand',"Quantico",12,Qt.AlignLeft))
+        cpu.addWidget(self.combob_builder(
+            int(self.width/7), int(self.height/40), ['Intel', 'AMD']))
+        gpu.addWidget(self.label_b('GPU Brand',"Quantico",12,Qt.AlignLeft))
+        gpu.addWidget(self.combob_builder(int(self.width/7), int(self.height/40), ['Nvidia', 'AMD']))
+        storage.addWidget(self.label_b('Storage Type',"Quantico",12,Qt.AlignLeft))
+        storage.addWidget(self.combob_builder(int(self.width/7), int(self.height/40), ['Only SSD', 'Only HDD','Both']))
+        
+        additional.addLayout(cpu)
+        additional.addLayout(gpu)
+        additional.addLayout(storage)
+        
+        group.setLayout(additional)
+        return group
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -169,7 +159,7 @@ class MainWindow(elementBuilder):
         layout_t = QHBoxLayout()
         layout_label = QHBoxLayout()
 
-        layout_vertical.setAlignment(Qt.AlignCenter)
+        layout_vertical.setAlignment(Qt.AlignTop)
 
         self.desktop = QApplication.desktop()  # Size setup
         self.screenRect = self.desktop.screenGeometry()
@@ -178,14 +168,13 @@ class MainWindow(elementBuilder):
         self.setGeometry(100, 100, int(self.width/32), int(self.height/18))
 
         self.budget_label = self.label_b(
-            "MY BUDGET IS", "Arial", 68, Qt.AlignCenter)
+            "MY BUDGET IS", "Arial", 45, Qt.AlignCenter)
         self.brand_label = self.label_b("Brand", "Quantico", 20, Qt.AlignLeft)
         self.pricepicker = self.qlineE_b(
-            int(self.width/2), int(self.height /
-                                   15), Qt.AlignCenter, QIntValidator()
+            int(self.width/4), int(self.height /
+                                   35), Qt.AlignCenter, QIntValidator()
         )
 
-        self.pricepicker.setContentsMargins(200, 20, 200, 2)
 
         purpose = self.purpose_layout()
 
@@ -200,8 +189,8 @@ class MainWindow(elementBuilder):
         layout_horizontal.addWidget(mb_l)
         layout_horizontal.addWidget(ram_l)
         layout_horizontal.addWidget(stg_l)
-        layout_horizontal.setContentsMargins(70, 100, 70, 20)
-        layout_horizontal.setSpacing(50)
+        
+        additional = self.additional()
 
         button = self.button_builder("BUILD IT", self.width/4, self.height/25)
 
@@ -214,7 +203,8 @@ class MainWindow(elementBuilder):
         layout_vertical.addLayout(layout_f, 2, 1)
         layout_vertical.addLayout(layout_label, 3, 1)
         layout_vertical.addLayout(layout_horizontal, 4, 1)
-        layout_vertical.addLayout(layout_t, 5, 1)
+        layout_vertical.addWidget(additional,5,1)
+        layout_vertical.addLayout(layout_t, 6, 1)
 
         widget = QWidget()
         widget.setLayout(layout_vertical)
