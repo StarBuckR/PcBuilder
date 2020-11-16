@@ -32,3 +32,18 @@ def download_gecko_driver():
         os.remove("./gecko.zip")
     except(RuntimeError):
         print(RuntimeError)
+def download_fonts():
+    url = "https://fonts.google.com/download?family=Quantico"
+    try:
+        file = requests.get(url, allow_redirects=True, stream=True)
+        
+        with open("./Quantico.zip", "wb") as f:
+            for chunk in file.iter_content(chunk_size=128):
+                f.write(chunk)
+        
+        #os.makedirs("./driver/")
+        with zipfile.ZipFile("./Quantico.zip", 'r') as zip_ref:
+            zip_ref.extractall("./fonts")
+        os.remove("./Quantico.zip")
+    except(RuntimeError):
+        print(RuntimeError)

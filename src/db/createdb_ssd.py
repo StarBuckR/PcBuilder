@@ -88,7 +88,6 @@ db = client.PcBuilder
 for ssd in ssd_csv_file:
     try:
         if ssd["Price"]:
-
             post = {
                 "Brand": ssd["Brand"],
                 "Model": ssd["Model"],
