@@ -459,11 +459,6 @@
                 "Desktop Benchmark": 77,
                 "Workstation Benchmark": 77
         },
-        "https://cpu.userbenchmark.com/SpeedTest/340638/AMD-Ryzen-Threadripper-1900X-8-Core-Processor": {
-                "Gameplay Benchmark": 76,
-                "Desktop Benchmark": 77,
-                "Workstation Benchmark": 77
-        },
         "https://cpu.userbenchmark.com/AMD-Ryzen-7-2700/Rating/3957": {
                 "Gameplay Benchmark": 76,
                 "Desktop Benchmark": 77,
@@ -473,26 +468,6 @@
                 "Gameplay Benchmark": 76,
                 "Desktop Benchmark": 80,
                 "Workstation Benchmark": 57
-        },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-TR-1920X/Rating/3934": {
-                "Gameplay Benchmark": 76,
-                "Desktop Benchmark": 76,
-                "Workstation Benchmark": 85
-        },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-TR-1950X/Rating/3932": {
-                "Gameplay Benchmark": 76,
-                "Desktop Benchmark": 76,
-                "Workstation Benchmark": 94
-        },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-5-1600X/Rating/3920": {
-                "Gameplay Benchmark": 75,
-                "Desktop Benchmark": 76,
-                "Workstation Benchmark": 69
-        },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-7-1700X/Rating/3915": {
-                "Gameplay Benchmark": 75,
-                "Desktop Benchmark": 75,
-                "Workstation Benchmark": 75
         },
         "https://cpu.userbenchmark.com/SpeedTest/567224/AMD-Ryzen-5-2500X-Quad-Core-Processor": {
                 "Gameplay Benchmark": 73,
@@ -504,20 +479,10 @@
                 "Desktop Benchmark": 83,
                 "Workstation Benchmark": 54
         },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-5-1600/Rating/3919": {
-                "Gameplay Benchmark": 72,
-                "Desktop Benchmark": 73,
-                "Workstation Benchmark": 66
-        },
         "https://cpu.userbenchmark.com/Intel-Core-i3-7320/Rating/3888": {
                 "Gameplay Benchmark": 72,
                 "Desktop Benchmark": 82,
                 "Workstation Benchmark": 53
-        },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-7-1700/Rating/3917": {
-                "Gameplay Benchmark": 72,
-                "Desktop Benchmark": 72,
-                "Workstation Benchmark": 71
         },
         "https://cpu.userbenchmark.com/Intel-Core-i5-7400/Rating/3886": {
                 "Gameplay Benchmark": 72,
@@ -528,10 +493,5 @@
                 "Gameplay Benchmark": 71,
                 "Desktop Benchmark": 81,
                 "Workstation Benchmark": 52
-        },
-        "https://cpu.userbenchmark.com/AMD-Ryzen-5-1500X/Rating/3921": {
-                "Gameplay Benchmark": 69,
-                "Desktop Benchmark": 72,
-                "Workstation Benchmark": 59
         }
 }
