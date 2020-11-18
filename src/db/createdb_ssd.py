@@ -41,7 +41,7 @@ def ssd_price():
     driver.quit()
 
 
-ssd_price()
+'ssd_price()'
 
 
 def ssd_model_parser(data_set):
@@ -111,7 +111,7 @@ for document in db.SSD.find():
     elif re.search("TB", temp_storage):
         temp_value = re.split("TB", temp_storage)
         temp = int(temp_value[0])*1000
-
     new_values = {"$set": {'Storage': temp}}
     to_change = {"Storage": document['Storage']}
-    x = db.temp.update_one(to_change, new_values)
+    x = db.SSD.update_one(to_change, new_values)
+    
