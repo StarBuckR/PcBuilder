@@ -10,13 +10,15 @@ class BuildType(enum.Enum):
 
 # Enum that contains Gpu Brands
 class GpuBrand(enum.Enum):
-    Nvidia = "Nvidia"
-    AMD = "AMD"
+    Nvidia = ["Nvidia"]
+    AMD = ["AMD"]
+    Both = ["Nvidia", "AMD"]
 
 # Enum that contains Cpu Brands
 class CpuBrand(enum.Enum):
-    Intel = "Intel"
-    AMD = "AMD"
+    Intel = ["Intel"]
+    AMD = ["AMD"]
+    Both = ["Intel", "AMD"]
 
 # Enum that contains Storage Types such as Only HDD, Only SSD and Both
 class StorageType(enum.Enum):
@@ -32,7 +34,7 @@ full_price = lambda x, y: percent(x)*y
 client = MongoClient('mongodb://localhost:27017/')
 db = client.PcBuilder
 
-def build_pc(price, percentages, title, build_type = BuildType.Gaming.name, gpu_brand = [GpuBrand.Nvidia.name, GpuBrand.AMD.name], cpu_brand = [CpuBrand.Intel.name, CpuBrand.AMD.name], storage_type = StorageType.Both.name):
+def build_pc(price, percentages, title, build_type = BuildType.Gaming.name, gpu_brand = GpuBrand.Both.name, cpu_brand = CpuBrand.Both.name, storage_type = StorageType.Both.name):
     # if percentage is not spesifically given, create percentages according to build type
     if percentages == None:
         percentages = get_percentages(build_type)

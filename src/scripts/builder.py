@@ -1,4 +1,5 @@
 from build_pc import build_pc, BuildType, GpuBrand, CpuBrand, StorageType, get_benchmark_text
+from percentage import Percentage
 
 pcs = []
 def builder(price, percentages, build_type = BuildType.Gaming.name, gpu_brand = [GpuBrand.Nvidia.name, GpuBrand.AMD.name], cpu_brand = [CpuBrand.Intel.name, CpuBrand.AMD.name], storage_type = StorageType.Both.name):
@@ -36,4 +37,4 @@ def builder(price, percentages, build_type = BuildType.Gaming.name, gpu_brand = 
     
     return pcs
 
-builder(1000, None)
+builder(1234, None)
