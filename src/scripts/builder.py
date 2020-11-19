@@ -7,7 +7,7 @@ def builder(price, percentages, build_type = BuildType.Gaming.name, gpu_brand = 
         gpu_brand = [gpu_brand]
     if not isinstance(cpu_brand, list): 
         cpu_brand = [cpu_brand]
-
+    
     # pc desired by user spesifications
     pcs.append(build_pc(price, percentages, "Desired", build_type, gpu_brand, cpu_brand, storage_type))
 
@@ -19,17 +19,19 @@ def builder(price, percentages, build_type = BuildType.Gaming.name, gpu_brand = 
     
     # if algorithm finds a system that doesn't change performance significantly and its price is 10% lower than expected,
     #  we also show that system, so user can decide whether or not to go for lower price one
-    pc = build_pc(price - price/10, percentages, "A bit cheaper but almost same performance version", build_type, gpu_brand, cpu_brand, storage_type)
+    pc = build_pc(price * 0.9, percentages, "A bit cheaper but almost same performance version", build_type, gpu_brand, cpu_brand, storage_type)
     if(pc["GPU"][get_benchmark_text(build_type)] >= pcs[0]["GPU"][get_benchmark_text(build_type)]*0.9) \
         or (pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*0.9):
             pcs.append(pc)
 
     # if algorithm finds a system that change performance significantly and its price is 10% higher than expected, we also show that system,
     # so user can decide whether or not to higher price
-    pc = build_pc(price + price/10, percentages, "A bit more expensive but more performent version", build_type, gpu_brand, cpu_brand, storage_type)
+    pc = build_pc(price * 1.1, percentages, "A bit more expensive but more performent version", build_type, gpu_brand, cpu_brand, storage_type)
     if(pc["GPU"][get_benchmark_text(build_type)] >= pcs[0]["GPU"][get_benchmark_text(build_type)]*1.1) \
         or (pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*1.1):
             pcs.append(pc)
     
+    for pc in pcs:
+        print(pc)
+    
     return pcs
-#Vbuilder(550, None)

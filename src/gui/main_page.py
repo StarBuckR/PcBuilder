@@ -29,6 +29,7 @@ class elementBuilder(QMainWindow):
         temp_button.setStyleSheet(
             "background-color:rgb(112,121,140);"
             "font-size:25px;"
+            "border-radius:12px"
         )
         temp_button.setText(content)
         return temp_button
@@ -56,7 +57,10 @@ class elementBuilder(QMainWindow):
         temp_qline.setMaximumWidth(width)
         temp_qline.setMinimumHeight(height)
         temp_qline.setAlignment(Qt.AlignCenter)
-        temp_qline.setStyleSheet("font-size:25px")
+        temp_qline.setStyleSheet(
+            "font-size:25px;"
+            
+            )
         return temp_qline
 
     def group_builder(self,head):
@@ -67,8 +71,8 @@ class elementBuilder(QMainWindow):
 
     def onRadioButtonClicked(self):
         radiobutton= self.sender()
-        percentages=["33","28","15","10","10","5","8"]
-        percentages_casual=["28","27","15","10","10","5","8"]
+        percentages=["22","33","12","10","10","5","8"]
+        percentages_casual=["28","27","12","10","10","5","8"]
         if radiobutton.isChecked():
             self.pc_pp = radiobutton.text()
             if self.pc_pp == 'Gaming':
@@ -85,7 +89,7 @@ class MainWindow(elementBuilder):
         last_bar = QHBoxLayout()
         elements=["CPU Price Percantage","GPU Price Percantage","Motherboard Price Percantage",\
             "RAM Price Percantage","SSD Price Percantage","HDD Price Percentage","Psu and Case Percentage"]
-        percentages=["33","28","15","10","10","5","8"]
+        percentages=["22","33","12","10","10","5","8"]
         self.edit_lines =[]
         for i,data in enumerate(elements):
             temp_hor = QHBoxLayout()
@@ -159,20 +163,87 @@ class MainWindow(elementBuilder):
         group.setLayout(additional)
         return group
 
-    def builded_pc(self,pcs):
+    def builded_pc(self,pcs):        
         vertical_layout = QVBoxLayout()
         scroll_area = QScrollArea()
+        scroll_area.setAlignment(Qt.AlignCenter)
         frame = QFrame()
-        frame.setMinimumHeight(int(self.height/2))
-        frame.setMinimumWidth(self.width)
-
-        for pc in pcs:
+        frame.setMinimumHeight(int(self.height/23))
+        frame.setMinimumWidth(self.width/1.1)
+        for pc in pcs: 
+            temp_vertical = QVBoxLayout()
             horizontal= QHBoxLayout()
             group_out = QGroupBox(pc['Title'])
-            cpu = pc['CPU']['Brand']
-    
-            group_out.setLayout(horizontal)
+            group_out.setStyleSheet(
+                "font-size:18px;"
+            )
+            left_over = str(round(pc['Leftover Price']))
+            storage =[]
+            cpu = [pc['CPU']['Brand'],pc['CPU']['Model'],pc['CPU']['Price']]
+            gpu = [pc['GPU']['Brand'],pc['GPU']['Model'],pc['GPU']['Price']]
+            motherboard = [pc['Motherboard']['Brand'],pc['GPU']['Price']]
+            ram = [pc['RAM']['Brand'],pc['RAM']['Model'],pc['RAM']['Gb'],pc['RAM']['Price']]
+            
+            cpu_group = QGroupBox('CPU')
+            cpu_vertical = QVBoxLayout()
+            cpu_vertical.addWidget(self.label_b(cpu[0]+" "+cpu[1],"Quantico",15,Qt.AlignCenter))
+            cpu_vertical.addWidget(self.label_b(str(cpu[2])+"$","Quantico",15,Qt.AlignCenter))
+            cpu_group.setLayout(cpu_vertical)
+            
+            gpu_group = QGroupBox('GPU')
+            gpu_vertical = QVBoxLayout()
+            gpu_vertical.addWidget(self.label_b(gpu[0]+" "+gpu[1],"Quantico",15,Qt.AlignCenter))
+            gpu_vertical.addWidget(self.label_b(str(gpu[2])+"$","Quantico",15,Qt.AlignCenter))
+            gpu_group.setLayout(gpu_vertical)
+            
+            motherboard_group = QGroupBox('Motherboard')
+            motherboard_vertical = QVBoxLayout()
+            motherboard_vertical.addWidget(self.label_b(motherboard[0],"Quantico",15,Qt.AlignCenter))
+            motherboard_vertical.addWidget(self.label_b(str(motherboard[1])+"$","Quantico",15,Qt.AlignCenter))
+            motherboard_group.setLayout(motherboard_vertical)
+
+            ram_group = QGroupBox('RAM')
+            ram_vertical = QVBoxLayout()
+            ram_vertical.addWidget(self.label_b(ram[0]+" "+ram[1],"Quantico",15,Qt.AlignCenter))
+            ram_vertical.addWidget(self.label_b(ram[2]+" GB","Quanctico",15,Qt.AlignCenter))
+            ram_vertical.addWidget(self.label_b(str(ram[3])+"$","Quantico",15,Qt.AlignCenter))
+            ram_group.setLayout(ram_vertical)
+
+            horizontal.addWidget(cpu_group)
+            horizontal.addWidget(gpu_group)
+            horizontal.addWidget(motherboard_group)
+            horizontal.addWidget(ram_group)
+
+            try:
+                ssd = [pc['SSD']['Brand'],pc['SSD']['Model'],pc['SSD']['Storage'],pc['SSD']['Price']]
+                ssd_group = QGroupBox('SSD')
+                ssd_vertical = QVBoxLayout()
+                ssd_vertical.addWidget(self.label_b(ssd[0]+" "+ssd[1],"Quantico",15,Qt.AlignCenter))
+                ssd_vertical.addWidget(self.label_b(str(ssd[2])+"GB","Quantico",15,Qt.AlignCenter))
+                ssd_vertical.addWidget(self.label_b(str(ssd[3])+"$","Quantico",15,Qt.AlignCenter))
+                ssd_group.setLayout(ssd_vertical)
+                horizontal.addWidget(ssd_group)
+            except:
+                pass
+            try:
+                hdd = [pc['HDD']['Brand'],pc['HDD']['Model'],pc['HDD']['Storage'],pc['HDD']['Price']]
+                hdd_group = QGroupBox('HDD')
+                hdd_vertical = QVBoxLayout()
+                hdd_vertical.addWidget(self.label_b(hdd[0]+" "+hdd[1],"Quantico",15,Qt.AlignCenter))
+                hdd_vertical.addWidget(self.label_b(str(hdd[2])+"GB","Quantico",15,Qt.AlignCenter))
+                hdd_vertical.addWidget(self.label_b(str(hdd[3])+"$","Quantico",15,Qt.AlignCenter))
+                hdd_group.setLayout(hdd_vertical)
+                horizontal.addWidget(hdd_group)
+            except:
+                pass
+
+            
+            temp_vertical.addLayout(horizontal)
+            temp_vertical.addWidget(self.label_b("Left:"+left_over+"$","Quantico",20,Qt.AlignCenter))
+            group_out.setLayout(temp_vertical)
+            
             vertical_layout.addWidget(group_out)
+        
         frame.setLayout(vertical_layout)
         scroll_area.setWidget(frame)
         return(scroll_area)
@@ -199,16 +270,17 @@ class MainWindow(elementBuilder):
         self.screenRect = self.desktop.screenGeometry()
         self.height = self.screenRect.height()
         self.width = self.screenRect.width()
-        self.setGeometry(100, 100, int(self.width/32), int(self.height/18))
+        self.setGeometry(100, 100, int(self.width/2), int(self.height/10))
 
         self.budget_label = self.label_b(
             "MY BUDGET IS", "Arial", 45, Qt.AlignCenter)
         self.brand_label = self.label_b("Brand", "Quantico", 20, Qt.AlignLeft)
         self.pricepicker = self.qlineE_b(
             int(self.width/4), int(self.height /
-                                   35), Qt.AlignCenter, QIntValidator())
+                                   20), Qt.AlignCenter, QIntValidator())
 
         self.button = self.button_builder("BUILD IT", self.width/4, self.height/25)
+        
         self.button.clicked.connect(self.add_pc)
         purpose = self.purpose_layout()
         additional = self.additional()
@@ -230,15 +302,19 @@ class MainWindow(elementBuilder):
     
     def add_pc(self):
         if (self.radioDesktop.isChecked() or self.radioGaming.isChecked() or self.radioWorkstation.isChecked()) and \
-            ((self.pricepicker.text() != "") and (int(self.pricepicker.text())>=550)):
+            ((self.pricepicker.text() != "")):
             price = int(self.pricepicker.text())
             cpu_brand,gpu_brand,storage_type = self.control_brands()
             pc_type = self.pc_pp
-           
             cpu,gpu,motherboard,ram,ssd,hdd,psu_and_case = self.getpercentages()
-            pcs = builder(price,Percentage(cpu,gpu,motherboard,ram,ssd,hdd,psu_and_case),pc_type,gpu_brand,cpu_brand,storage_type)
-            print(type(pcs))
-            self.layout_vertical.addWidget(self.builded_pc(pcs),5,1)
+            if price > 550 :
+                if cpu+gpu+motherboard+ram+ssd+hdd+psu_and_case == 100:
+                    pcs = builder(price,Percentage(cpu,gpu,motherboard,ram,ssd,hdd,psu_and_case),pc_type,gpu_brand,cpu_brand,storage_type)
+                    self.layout_vertical.addWidget(self.builded_pc(pcs),6,1)
+                else:
+                    self.errorHandler("Summary of the percentages cannot be more or less than 100% ")
+            else:
+                self.errorHandler("Price cannot be lower than 550")
         else:
             self.errorHandler('Please choose a PC Type')
     
@@ -269,9 +345,9 @@ class MainWindow(elementBuilder):
         ssd = int(self.edit_lines[4].text())
         hdd = int(self.edit_lines[5].text())
         psu_and_case = int(self.edit_lines[6].text())
-
+        
         return cpu,gpu,motherboard,ram,ssd,hdd,psu_and_case
-
+        
     def errorHandler(self,error):
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)

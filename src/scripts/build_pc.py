@@ -39,11 +39,10 @@ def build_pc(price, percentages, title, build_type = BuildType.Gaming.name, gpu_
         if percentages == None: return
 
     if price < 550:
-        print("Price can not be lower than 450 dollars")
+        print("Price can not be lower than 550 dollars")
         import sys
         sys.exit()
-        return
-    
+
     # price that will spent on psu and case (currently not supported, it's basically blank for now but price is calculated)
     leftover_price = price - full_price(percentages.psu_and_case, price)
 
@@ -100,13 +99,14 @@ def pick_hdd(spendable_price, price):
 def pick_cpu(spendable_price, build_type, cpu_brand, price):
     benchmark = get_benchmark_text(build_type)
     cpu = db.CPU.find_one({"Price":{"$lte": spendable_price}, "Brand": {"$in": cpu_brand}}, sort=[(benchmark, -1)])
+
     if cpu:
         return price - cpu["Price"], cpu
     else:
         return price, None
 
 def pick_motherboard(spendable_price, socket, chipset_oc, chipset, price):
-    atx = ["ATX"] if spendable_price > 100 else ["Micro ATX", "Mini ITX", "ATX"]
+    atx = ["ATX", "EATX"] if spendable_price > 100 else ["Micro ATX", "Mini ITX", "ATX", "EATX"]
     
     motherboard = db.MOTHERBOARD.find_one({"Price":{"$lte": spendable_price*1.1}, "Atx": {"$in": atx}, "Socket": socket.replace(" ", ""), "Chipset": {"$in": chipset_oc.split(",")}}, sort=[("MHZ", -1)])
     if not motherboard:
@@ -139,21 +139,21 @@ def pick_gpu(spendable_price, build_type, gpu_brand, price):
     else:
         return price, None
 
-# default percentage: gpu = 28%, cpu = 22%, ram = 10%, motherboard = 15%, ssd = 10%, hdd = 5%, psu_and_case = 10%
+# default percentages are: gpu = 33%, cpu = 22%, ram = 10%, motherboard = 12%, ssd = 10%, hdd = 5%, psu_and_case = 8%
 def get_percentages(build_type):
     switcher = { 
         BuildType.Gaming.name: Percentage(), # default
-        BuildType.Casual.name: Percentage(28, 27), # gpu = 25%, cpu = 25%, others stays the same
-        BuildType.Rendering.name: Percentage(28, 27), # gpu = 25%, cpu = 25%, others stays the same
+        BuildType.Casual.name: Percentage(28, 27), # gpu = 28%, cpu = 27%, others stays the same
+        BuildType.Rendering.name: Percentage(28, 27), # gpu = 28%, cpu = 27%, others stays the same
     } 
 
     return switcher.get(build_type, None)
 
 def get_benchmark_text(build_type):
     switcher = { 
-        BuildType.Gaming.name: "Gameplay Benchmark", # default
-        BuildType.Casual.name: "Desktop Benchmark", # gpu = 25%, cpu = 25%, others stays the same
-        BuildType.Rendering.name: "Worksation Benchmark", # gpu = 25%, cpu = 25%, others stays the same
+        BuildType.Gaming.name: "Gameplay Benchmark",
+        BuildType.Casual.name: "Desktop Benchmark",
+        BuildType.Rendering.name: "Workstation Benchmark",
     } 
 
     return switcher.get(build_type, None)
