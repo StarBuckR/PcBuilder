@@ -6,10 +6,9 @@ sys.path.insert(1, os.getcwd() + '/src/scripts/')
 import price_performance
 
 sys.path.insert(1, os.getcwd() + '/src/scripts/')
-from main_page import main_page
+from main_page import create_main_window
 
 if not os.path.exists('./config.json'):
-    print("h")
     data = { "Initialized": False }
     with open("./config.json", "w") as f:
         json.dump(data, f, indent=4)
@@ -31,6 +30,4 @@ price_performance.ram()
 price_performance.gpu()
 price_performance.cpu()
 
-main_page()
-
-print("Test")
+create_main_window()

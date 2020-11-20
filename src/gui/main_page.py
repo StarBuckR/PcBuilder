@@ -398,7 +398,7 @@ class MainWindow(elementBuilder):
                 self.pc_pp == BuildType.Rendering.value
                 
 
-def main_page():
+def create_main_window():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
