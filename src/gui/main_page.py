@@ -42,7 +42,7 @@ class elementBuilder(QMainWindow):
             'font-size:18px')
         return temp_combo
 
-    def label_b(self, content, font, size, alignment):
+    def label_b(self, content, font, size, alignment=Qt.AlignCenter):
         temp_label = QLabel()
         temp_label.setText(content)
         temp_label.setAlignment(alignment)
@@ -213,35 +213,35 @@ class MainWindow(elementBuilder):
         
             cpu_group = QGroupBox('CPU')
             cpu_vertical = QVBoxLayout()
-            cpu_vertical.addWidget(self.label_b(cpu[0]+" "+cpu[1],"Quantico",15,Qt.AlignCenter))
-            cpu_vertical.addWidget(self.label_b(get_benchmark_text(self.pc_pp)+": "+str(cpu[3]),"Quantico",15,Qt.AlignCenter))
-            cpu_vertical.addWidget(self.label_b("Price Performance: "+str(round(cpu[4])),"Quantico",15,Qt.AlignCenter))
-            cpu_vertical.addWidget(self.label_b(str(cpu[2])+"$","Quantico",15,Qt.AlignCenter))
+            cpu_vertical.addWidget(self.label_b(cpu[0]+" "+cpu[1],"Quantico",15,Qt.AlignLeft))
+            cpu_vertical.addWidget(self.label_b(get_benchmark_text(self.pc_pp)+": "+str(cpu[3]),"Quantico",15,Qt.AlignLeft))
+            cpu_vertical.addWidget(self.label_b("Price Performance: "+str(round(cpu[4])),"Quantico",15,Qt.AlignLeft))
+            cpu_vertical.addWidget(self.label_b(str(cpu[2])+"$","Quantico",15,Qt.AlignLeft))
             cpu_group.setLayout(cpu_vertical)
             
             gpu_group = QGroupBox('GPU')
             gpu_vertical = QVBoxLayout()
-            gpu_vertical.addWidget(self.label_b(gpu[0]+" "+gpu[1],"Quantico",15,Qt.AlignCenter))
-            gpu_vertical.addWidget(self.label_b(get_benchmark_text(self.pc_pp)+": "+str(gpu[3]),"Quantico",15,Qt.AlignCenter))
-            gpu_vertical.addWidget(self.label_b("Price Performance: "+str(round(gpu[4])),"Quantico",15,Qt.AlignCenter))
-            gpu_vertical.addWidget(self.label_b(str(gpu[2])+"$","Quantico",15,Qt.AlignCenter))
+            gpu_vertical.addWidget(self.label_b(gpu[0]+" "+gpu[1],"Quantico",15,Qt.AlignLeft))
+            gpu_vertical.addWidget(self.label_b(get_benchmark_text(self.pc_pp)+": "+str(gpu[3]),"Quantico",15,Qt.AlignLeft))
+            gpu_vertical.addWidget(self.label_b("Price Performance: "+str(round(gpu[4])),"Quantico",15,Qt.AlignLeft))
+            gpu_vertical.addWidget(self.label_b(str(gpu[2])+"$","Quantico",15,Qt.AlignLeft))
             gpu_group.setLayout(gpu_vertical)
             
             motherboard_group = QGroupBox('Motherboard')
             motherboard_vertical = QVBoxLayout()
-            motherboard_vertical.addWidget(self.label_b(motherboard[0],"Quantico",15,Qt.AlignCenter))
-            motherboard_vertical.addWidget(self.label_b(str(motherboard[2])+" Mhz","Quantico",15,Qt.AlignCenter))
-            motherboard_vertical.addWidget(self.label_b(motherboard[3],"Quantico",15,Qt.AlignCenter))
-            motherboard_vertical.addWidget(self.label_b(str(motherboard[1])+"$","Quantico",15,Qt.AlignCenter))
+            motherboard_vertical.addWidget(self.label_b(motherboard[0],"Quantico",15,Qt.AlignLeft))
+            motherboard_vertical.addWidget(self.label_b(str(motherboard[2])+" Mhz","Quantico",15,Qt.AlignLeft))
+            motherboard_vertical.addWidget(self.label_b(motherboard[3],"Quantico",15,Qt.AlignLeft))
+            motherboard_vertical.addWidget(self.label_b(str(motherboard[1])+"$","Quantico",15,Qt.AlignLeft))
             motherboard_group.setLayout(motherboard_vertical)
 
             ram_group = QGroupBox('RAM')
             ram_vertical = QVBoxLayout()
-            ram_vertical.addWidget(self.label_b(ram[0]+" "+ram[1],"Quantico",15,Qt.AlignCenter))
-            ram_vertical.addWidget(self.label_b(ram[2]+" GB","Quanctico",15,Qt.AlignCenter))
-            ram_vertical.addWidget(self.label_b(str(ram[4])+" Mhz , CL: "+str(ram[5]),"Quanctico",15,Qt.AlignCenter))
-            ram_vertical.addWidget(self.label_b("Price Performance: "+str(round(ram[6])),"Quantico",15,Qt.AlignCenter))
-            ram_vertical.addWidget(self.label_b(str(ram[3])+"$","Quantico",15,Qt.AlignCenter))
+            ram_vertical.addWidget(self.label_b(ram[0]+" "+ram[1],"Quantico",15,Qt.AlignLeft))
+            ram_vertical.addWidget(self.label_b(ram[2]+" GB","Quanctico",15,Qt.AlignLeft))
+            ram_vertical.addWidget(self.label_b(str(ram[4])+" Mhz , CL: "+str(ram[5]),"Quanctico",15,Qt.AlignLeft))
+            ram_vertical.addWidget(self.label_b("Price Performance: "+str(round(ram[6])),"Quantico",15,Qt.AlignLeft))
+            ram_vertical.addWidget(self.label_b(str(ram[3])+"$","Quantico",15,Qt.AlignLeft))
             ram_group.setLayout(ram_vertical)
 
             horizontal.addWidget(cpu_group)
@@ -249,31 +249,39 @@ class MainWindow(elementBuilder):
             horizontal.addWidget(motherboard_group)
             horizontal.addWidget(ram_group)
 
-            try:
+            if pc['SSD'] is not None:
                 ssd = [pc['SSD']['Brand'],pc['SSD']['Model'],pc['SSD']['Storage'],pc['SSD']['Price'],pc['SSD']['M2'],pc['SSD']['Price-Performance']]
                 ssd_group = QGroupBox('SSD')
                 ssd_vertical = QVBoxLayout()
-                strg = str(round((ssd[2]/1000))+" TB",1) if ssd[2] >=1000  else str(ssd[2])+" GB"
-                ssd_vertical.addWidget(self.label_b(ssd[0]+" "+ssd[1]+ " M2" if ssd[4] == True else None ,"Quantico",15,Qt.AlignCenter))
-                ssd_vertical.addWidget(self.label_b(strg,"Quantico",15,Qt.AlignCenter))
-                ssd_vertical.addWidget(self.label_b("Price Performance: "+str(round(ram[5])),"Quantico",15,Qt.AlignCenter))
-                ssd_vertical.addWidget(self.label_b(str(ssd[3])+"$","Quantico",15,Qt.AlignCenter))
+                if ssd[2] >=1000:
+                    strg_v = round((ssd[2]/1000),1)
+                    print(strg_v)
+                    strg = str(strg_v) + " TB"
+                else:
+                    strg = str(ssd[2])+" GB"
+                ssd_vertical.addWidget(self.label_b(ssd[0]+" "+ssd[1]+ " M2" if ssd[4] == True else None ,"Quantico",15,Qt.AlignLeft))
+                ssd_vertical.addWidget(self.label_b(strg,"Quantico",15,Qt.AlignLeft))
+                ssd_vertical.addWidget(self.label_b("Price Performance: "+str(round(ram[5])),"Quantico",15,Qt.AlignLeft))
+                ssd_vertical.addWidget(self.label_b(str(ssd[3])+"$","Quantico",15,Qt.AlignLeft))
                 ssd_group.setLayout(ssd_vertical)
                 horizontal.addWidget(ssd_group)
-            except:
-                pass
-            try:
+            
+            if pc['HDD'] is not None:
                 hdd = [pc['HDD']['Brand'],pc['HDD']['Model'],pc['HDD']['Storage'],pc['HDD']['Price']]
                 hdd_group = QGroupBox('HDD')
                 hdd_vertical = QVBoxLayout()
-                strgh = string(round((ssd[2]/1000))+" TB",1) if hdd[2] >=1000 else str(ssd[2])+" GB"
-                hdd_vertical.addWidget(self.label_b(hdd[0]+" "+hdd[1],"Quantico",15,Qt.AlignCenter))
-                hdd_vertical.addWidget(self.label_b(strgh)+"GB","Quantico",15,Qt.AlignCenter)
-                hdd_vertical.addWidget(self.label_b(str(hdd[3])+"$","Quantico",15,Qt.AlignCenter))
+                if hdd[2] >= 1000:
+                    strgh_v = round((hdd[2]/1000),1)
+                    print(strgh_v)
+                    strgh = str(strgh_v) + " TB"
+                else:
+                    strgh = str(hdd[2])+" GB"
+                hdd_vertical.addWidget(self.label_b(hdd[0]+" "+hdd[1],"Quantico",15,Qt.AlignLeft))
+                hdd_vertical.addWidget(self.label_b(strgh,"Quantico",15,Qt.AlignLeft))
+                hdd_vertical.addWidget(self.label_b(str(hdd[3])+"$","Quantico",15,Qt.AlignLeft))
                 hdd_group.setLayout(hdd_vertical)
                 horizontal.addWidget(hdd_group)
-            except:
-                pass
+    
 
             
             temp_vertical.addLayout(horizontal)
