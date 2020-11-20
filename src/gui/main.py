@@ -1,8 +1,12 @@
 import json
 import os, sys
 
+
 sys.path.insert(1, os.getcwd() + '/src/scripts/')
 import price_performance
+
+sys.path.insert(1, os.getcwd() + '/src/scripts/')
+from main_page import main_page
 
 if not os.path.exists('./config.json'):
     print("h")
@@ -26,5 +30,7 @@ price_performance.ssd()
 price_performance.ram()
 price_performance.gpu()
 price_performance.cpu()
+
+main_page()
 
 print("Test")

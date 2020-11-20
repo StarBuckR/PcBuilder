@@ -3,6 +3,7 @@ from percentage import Percentage
 
 def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand = GpuBrand.Both.value, cpu_brand = CpuBrand.Both.value, storage_type = StorageType.Both.value):
     # quick hacky fix for $in in mongodb "Nvidia" to ["Nvidia"]
+    pcs = []
     if not isinstance(gpu_brand, list): 
         gpu_brand = [gpu_brand]
     if not isinstance(cpu_brand, list): 
@@ -32,9 +33,5 @@ def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand =
         or (pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*1.1):
             pcs.append(pc)
     
-    for pc in pcs:
-        print(pc)
-    
     return pcs
 
-builder(1234, None)
