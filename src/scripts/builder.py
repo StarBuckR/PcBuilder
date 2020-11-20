@@ -1,7 +1,6 @@
 from build_pc import build_pc, BuildType, GpuBrand, CpuBrand, StorageType, get_benchmark_text
 from percentage import Percentage
 
-pcs = []
 def builder(price, percentages, build_type = BuildType.Gaming.name, gpu_brand = [GpuBrand.Nvidia.name, GpuBrand.AMD.name], cpu_brand = [CpuBrand.Intel.name, CpuBrand.AMD.name], storage_type = StorageType.Both.name):
     # quick hacky fix for $in in mongodb "Nvidia" to ["Nvidia"]
     if not isinstance(gpu_brand, list): 
@@ -9,7 +8,8 @@ def builder(price, percentages, build_type = BuildType.Gaming.name, gpu_brand = 
     if not isinstance(cpu_brand, list): 
         cpu_brand = [cpu_brand]
     
-    # pc desired by user spesifications
+    pcs = []
+    # pc desired by user specifications
     pcs.append(build_pc(price, percentages, "Desired", build_type, gpu_brand, cpu_brand, storage_type))
 
     # if user changed any default setting, we also show our algorithms default version, so user can decide which to choose
