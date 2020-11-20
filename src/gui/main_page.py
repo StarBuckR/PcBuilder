@@ -308,8 +308,8 @@ class MainWindow(elementBuilder):
             cpu, gpu, motherboard, ram, ssd, hdd, psu_and_case = self.getpercentages()
             if price > 550:
                 if cpu+gpu+motherboard+ram+ssd+hdd+psu_and_case == 100:
-                    pcs = builder(price, Percentage(cpu, gpu, motherboard, ram, ssd,
-                                                    hdd, psu_and_case), pc_type, gpu_brand, cpu_brand, storage_type)
+                    print(cpu, gpu, motherboard, ram, ssd,hdd, psu_and_case)
+                    pcs = builder(price, Percentage(gpu, cpu, ram, motherboard, ssd, hdd, psu_and_case), pc_type, gpu_brand, cpu_brand, storage_type)
                     self.layout_main.addWidget(self.builded_pc(pcs), 7, 1)
                 else:
                     self.errorHandler(
@@ -322,25 +322,25 @@ class MainWindow(elementBuilder):
     # Checks combo boxes current state
     def control_brands(self):
         if self.gpu_brand_box.currentText() == "Default":
-            gpu_brand = [GpuBrand.Nvidia.name, GpuBrand.AMD.name]
+            gpu_brand = GpuBrand.Both.value
         elif self.gpu_brand_box.currentText() == "AMD":
-            gpu_brand = [GpuBrand.AMD.name]
+            gpu_brand = GpuBrand.AMD.value
         else:
-            gpu_brand = [GpuBrand.Nvidia.name]
+            gpu_brand = GpuBrand.Nvidia.value
 
         if self.cpu_brand_box.currentText() == "Default":
-            cpu_brand = [CpuBrand.Intel.name, CpuBrand.AMD.name]
+            cpu_brand = CpuBrand.Both.value
         elif self.cpu_brand_box.currentText() == "AMD":
-            cpu_brand = [CpuBrand.AMD.name]
+            cpu_brand = CpuBrand.AMD.value
         else:
 
-            cpu_brand = [CpuBrand.Intel.name]
+            cpu_brand = CpuBrand.Intel.value
         if self.storage_box.currentText() == "Default":
-            storage_type = StorageType.Both.name
+            storage_type = StorageType.Both.value
         elif self.storage_box.currentText() == "Only SSD":
-            storage_type = StorageType.OnlySSD.name
+            storage_type = StorageType.OnlySSD.value
         else:
-            storage_type = StorageType.OnlyHDD.name
+            storage_type = StorageType.OnlyHDD.value
 
         return cpu_brand, gpu_brand, storage_type
 
@@ -388,9 +388,16 @@ class MainWindow(elementBuilder):
             if self.pc_pp == 'Gaming':
                 for i, data in enumerate(self.edit_lines):
                     data.setText(self.percentages_gaming[i])
+                self.pc_pp = BuildType.Gaming.value
+            elif self.pc_pp == 'Casual':
+                for i, data in enumerate(self.edit_lines):
+                    data.setText(percentages_casual[i])
+                self.pc_pp == BuildType.Casual.value
             else:
                 for i, data in enumerate(self.edit_lines):
                     data.setText(percentages_casual[i])
+                self.pc_pp == BuildType.Rendering.value
+                
 
 def main():
     app = QApplication(sys.argv)
