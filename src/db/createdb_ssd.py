@@ -40,9 +40,7 @@ def ssd_price():
             row["Price"] = price
     driver.quit()
 
-
-'ssd_price()'
-
+ssd_price()
 
 def ssd_model_parser(data_set):
     try:
@@ -69,7 +67,6 @@ def ssd_model_parser(data_set):
         return model, storage, m2
     except:
         pass  # if it's empty or it doesn't fit the pattern
-
 
 for data in ssd_csv_file:
     try:

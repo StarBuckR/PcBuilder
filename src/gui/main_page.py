@@ -168,7 +168,7 @@ class MainWindow(elementBuilder):
         scroll_area.setAlignment(Qt.AlignCenter)
         frame = QFrame()
         frame.setMinimumHeight(int(self.height/23))
-        frame.setMinimumWidth(self.width/1.08)
+        frame.setMinimumWidth(int(self.width/1.08))
 
         for pc in pcs:
             temp_vertical = QVBoxLayout()
@@ -308,7 +308,6 @@ class MainWindow(elementBuilder):
             cpu, gpu, motherboard, ram, ssd, hdd, psu_and_case = self.getpercentages()
             if price > 550:
                 if cpu+gpu+motherboard+ram+ssd+hdd+psu_and_case == 100:
-                    print(cpu, gpu, motherboard, ram, ssd,hdd, psu_and_case)
                     pcs = builder(price, Percentage(gpu, cpu, ram, motherboard, ssd, hdd, psu_and_case), pc_type, gpu_brand, cpu_brand, storage_type)
                     self.layout_main.addWidget(self.builded_pc(pcs), 7, 1)
                 else:
@@ -399,10 +398,8 @@ class MainWindow(elementBuilder):
                 self.pc_pp == BuildType.Rendering.value
                 
 
-def main():
+def main_page():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     app.exec_()
-if __name__ == '__main__':
-    main()
