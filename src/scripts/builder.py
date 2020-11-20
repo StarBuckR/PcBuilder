@@ -2,13 +2,6 @@ from build_pc import build_pc, BuildType, GpuBrand, CpuBrand, StorageType, get_b
 from percentage import Percentage
 
 def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand = GpuBrand.Both.value, cpu_brand = CpuBrand.Both.value, storage_type = StorageType.Both.value):
-    # quick hacky fix for $in in mongodb "Nvidia" to ["Nvidia"]
-    pcs = []
-    if not isinstance(gpu_brand, list): 
-        gpu_brand = [gpu_brand]
-    if not isinstance(cpu_brand, list): 
-        cpu_brand = [cpu_brand]
-    
     pcs = []
     # pc desired by user specifications
     pcs.append(build_pc(price, percentages, "Desired", build_type, gpu_brand, cpu_brand, storage_type))
@@ -37,3 +30,4 @@ def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand =
     
     return pcs
 
+#builder(1234, None, gpu_brand=GpuBrand.Nvidia.value)
