@@ -27,7 +27,7 @@ def ram():
         latency_value = float(document['CL']/document['MHZ']*1000)
 
         update_database(price_performance_value, db.RAM, document["_id"], "Price-Performance")
-        update_database(price_performance_value, db.RAM, document["_id"], "Latency")
+        update_database(latency_value, db.RAM, document["_id"], "Latency")
 
 def gpu():
     for document in db.GPU.find():
