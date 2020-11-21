@@ -178,6 +178,7 @@ class MainWindow(elementBuilder):
 
             # to get needed data.
             left_over = str(round(pc['Leftover Price']))
+            total_price = str(pc['Total Price'])
             cpu = [pc['CPU']['Brand'], pc['CPU']['Model'], pc['CPU']['Price'],
                    pc['CPU'][get_benchmark_text(self.pc_pp)], pc['CPU']['Price-Performance']]
             gpu = [pc['GPU']['Brand'], pc['GPU']['Model'], pc['GPU']['Price'],
@@ -288,10 +289,37 @@ class MainWindow(elementBuilder):
                 horizontal.addWidget(hdd_group)
 
             temp_vertical.addLayout(horizontal)
-            temp_vertical.addWidget(self.label_b("Left:"+left_over+"$", 20))
+            temp_horizontal = QHBoxLayout()
+            temp_horizontal.setSpacing(150)
+
+            temp_horizontal_total = QHBoxLayout()
+            temp_horizontal_left = QHBoxLayout()
+            temp_horizontal_spent = QHBoxLayout()
+
+            temp_group_total = QGroupBox()
+            temp_group_total.setMaximumSize(220, 50)
+            temp_group_left = QGroupBox()
+            temp_group_left.setMaximumSize(220, 50)
+            temp_group_spent = QGroupBox()
+            temp_group_spent.setMaximumSize(220, 50)
+
+            temp_horizontal_total.addWidget(self.label_b("Total Price: " + total_price + "$", 20))
+            temp_horizontal_left.addWidget(self.label_b("Left: " + left_over + "$", 20))
+            temp_horizontal_spent.addWidget(self.label_b("Total Spent: " + str(float(total_price) - float(left_over)) + "$", 20))
+            
+            temp_group_total.setLayout(temp_horizontal_total)
+            temp_group_left.setLayout(temp_horizontal_left)
+            temp_group_spent.setLayout(temp_horizontal_spent)
+
+            temp_horizontal.addWidget(temp_group_total)
+            temp_horizontal.addWidget(temp_group_left)
+            temp_horizontal.addWidget(temp_group_spent)
+
+            temp_vertical.addLayout(temp_horizontal)
             group_out.setLayout(temp_vertical)
 
             vertical_layout.addWidget(group_out)
+            
         frame.setLayout(vertical_layout)
         scroll_area.setWidget(frame)
         return(scroll_area)

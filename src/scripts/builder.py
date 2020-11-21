@@ -17,7 +17,7 @@ def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand =
     pc = build_pc(price * 0.9, percentages, "A bit cheaper but almost same performance version", build_type, gpu_brand, cpu_brand, storage_type)
     if (pc["GPU"] != pcs[0]["GPU"] and pc["CPU"] != pcs[0]["CPU"]) \
         and (pc["GPU"][get_benchmark_text(build_type)] >= pcs[0]["GPU"][get_benchmark_text(build_type)]*0.9 \
-        or pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*0.9):
+        and pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*0.9):
             pcs.append(pc)
 
     # if algorithm finds a system that change performance significantly and its price is 10% higher than expected, we also show that system,
@@ -25,7 +25,7 @@ def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand =
     pc = build_pc(price * 1.1, percentages, "A bit more expensive but more performent version", build_type, gpu_brand, cpu_brand, storage_type)
     if (pc["GPU"] != pcs[0]["GPU"] and pc["CPU"] != pcs[0]["CPU"])\
         and (pc["GPU"][get_benchmark_text(build_type)] >= pcs[0]["GPU"][get_benchmark_text(build_type)]*1.1 \
-        or pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*1.1):
+        and pc["CPU"][get_benchmark_text(build_type)] >= pcs[0]["CPU"][get_benchmark_text(build_type)]*1.1):
             pcs.append(pc)
     
     return pcs
