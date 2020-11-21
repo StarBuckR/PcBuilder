@@ -40,9 +40,7 @@ def ssd_price():
             row["Price"] = price
     driver.quit()
 
-
 ssd_price()
-
 
 def ssd_model_parser(data_set):
     try:
@@ -70,7 +68,6 @@ def ssd_model_parser(data_set):
     except:
         pass  # if it's empty or it doesn't fit the pattern
 
-
 for data in ssd_csv_file:
     try:
         check = ssd_model_parser(data["Model"])
@@ -88,7 +85,6 @@ db = client.PcBuilder
 for ssd in ssd_csv_file:
     try:
         if ssd["Price"]:
-
             post = {
                 "Brand": ssd["Brand"],
                 "Model": ssd["Model"],
@@ -112,7 +108,7 @@ for document in db.SSD.find():
     elif re.search("TB", temp_storage):
         temp_value = re.split("TB", temp_storage)
         temp = int(temp_value[0])*1000
-
     new_values = {"$set": {'Storage': temp}}
     to_change = {"Storage": document['Storage']}
-    x = db.temp.update_one(to_change, new_values)
+    x = db.SSD.update_one(to_change, new_values)
+    

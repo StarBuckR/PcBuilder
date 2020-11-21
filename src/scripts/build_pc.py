@@ -34,7 +34,7 @@ full_price = lambda x, y: percent(x)*y
 client = MongoClient('mongodb://localhost:27017/')
 db = client.PcBuilder
 
-def build_pc(price, percentages, title, build_type = BuildType.Gaming.name, gpu_brand = GpuBrand.Both.name, cpu_brand = CpuBrand.Both.name, storage_type = StorageType.Both.name):
+def build_pc(price, percentages, title, build_type = BuildType.Gaming.value, gpu_brand = GpuBrand.Both.value, cpu_brand = CpuBrand.Both.value, storage_type = StorageType.Both.value):
     # if percentage is not spesifically given, create percentages according to build type
     if percentages == None:
         percentages = get_percentages(build_type)
@@ -50,17 +50,17 @@ def build_pc(price, percentages, title, build_type = BuildType.Gaming.name, gpu_
 
     ssd = None
     hdd = None
-    if storage_type == StorageType.Both.name:
+    if storage_type == StorageType.Both.value:
         leftover_price, ssd = pick_ssd(full_price(percentages.ssd, price), leftover_price)
         leftover_price, hdd = pick_hdd(full_price(percentages.hdd, price), leftover_price)
-    elif storage_type == StorageType.OnlySSD.name:
+    elif storage_type == StorageType.OnlySSD.value:
         leftover_price, ssd = pick_ssd(full_price(percentages.ssd, price), leftover_price)
-    elif storage_type == StorageType.OnlyHDD.name:
+    elif storage_type == StorageType.OnlyHDD.value:
         leftover_price, hdd = pick_hdd(full_price(percentages.hdd, price), leftover_price)
 
     leftover_price, cpu = pick_cpu(full_price(percentages.cpu, price), build_type, cpu_brand, leftover_price)
     leftover_price, motherboard = pick_motherboard(full_price(percentages.motherboard, price), cpu["Socket"], cpu["Chipset OC"], cpu["Chipset"], leftover_price)
-    leftover_price, ram = pick_ram(full_price(percentages.ram, price), motherboard, leftover_price)
+    leftover_price, ram = pick_ram(full_price(percentages.ram, price), motherboard["Memory Max"], motherboard["Memory Slots"], motherboard["MHZ"], leftover_price)
     leftover_price, gpu = pick_gpu(leftover_price, build_type, gpu_brand, leftover_price)
 
     pc = {}
@@ -110,6 +110,10 @@ def pick_cpu(spendable_price, build_type, cpu_brand, price):
 def pick_motherboard(spendable_price, socket, chipset_oc, chipset, price):
     atx = ["ATX", "EATX"] if spendable_price > 100 else ["Micro ATX", "Mini ITX", "ATX", "EATX"]
     
+    # hacky fix for a little bug that caused by scraped websites socket naming convention
+    if socket in ["TRX4", "TR4"]:
+        socket = "s" + socket
+
     motherboard = db.MOTHERBOARD.find_one({"Price":{"$lte": spendable_price*1.1}, "Atx": {"$in": atx}, "Socket": socket.replace(" ", ""), "Chipset": {"$in": chipset_oc.split(",")}}, sort=[("MHZ", -1)])
     if not motherboard:
         motherboard = db.MOTHERBOARD.find_one({"Price":{"$lte": spendable_price*1.1}, "Atx": {"$in": atx}, "Socket": socket.replace(" ", ""), "Chipset": {"$in": chipset.split(",")}}, sort=[("MHZ", -1)])
@@ -119,8 +123,8 @@ def pick_motherboard(spendable_price, socket, chipset_oc, chipset, price):
     else:
         return price, None
 
-def pick_ram(spendable_price, motherboard, price):
-    rams = db.RAM.find({"Price":{"$lte": spendable_price}, "Total Memory": {"$lte": motherboard["Memory Max"]}, "RAM Count" : {"$lte": motherboard["Memory Slots"]}, "MHZ": {"$lte": motherboard["MHZ"]}})
+def pick_ram(spendable_price, total_memory, memory_slots, mhz, price):
+    rams = db.RAM.find({"Price":{"$lte": spendable_price}, "Total Memory": {"$lte": total_memory}, "RAM Count" : {"$lte": memory_slots}, "MHZ": {"$lte": mhz}})
 
     ram = rams[0]
     for r in rams:
@@ -144,18 +148,18 @@ def pick_gpu(spendable_price, build_type, gpu_brand, price):
 # default percentages are: gpu = 33%, cpu = 22%, ram = 10%, motherboard = 12%, ssd = 10%, hdd = 5%, psu_and_case = 8%
 def get_percentages(build_type):
     switcher = { 
-        BuildType.Gaming.name: Percentage(), # default
-        BuildType.Casual.name: Percentage(28, 27), # gpu = 28%, cpu = 27%, others stays the same
-        BuildType.Rendering.name: Percentage(28, 27), # gpu = 28%, cpu = 27%, others stays the same
+        BuildType.Gaming.value: Percentage(), # default
+        BuildType.Casual.value: Percentage(28, 27), # gpu = 28%, cpu = 27%, others stays the same
+        BuildType.Rendering.value: Percentage(28, 27), # gpu = 28%, cpu = 27%, others stays the same
     } 
 
     return switcher.get(build_type, None)
 
 def get_benchmark_text(build_type):
     switcher = { 
-        BuildType.Gaming.name: "Gameplay Benchmark",
-        BuildType.Casual.name: "Desktop Benchmark",
-        BuildType.Rendering.name: "Workstation Benchmark",
+        BuildType.Gaming.value: "Gameplay Benchmark",
+        BuildType.Casual.value: "Desktop Benchmark",
+        BuildType.Rendering.value: "Workstation Benchmark",
     } 
 
     return switcher.get(build_type, None)
