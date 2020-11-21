@@ -30,4 +30,4 @@ def builder(price, percentages, build_type = BuildType.Gaming.value, gpu_brand =
     
     return pcs
 
-#builder(1234, None, gpu_brand=GpuBrand.Nvidia.value)
+builder(1000, None)

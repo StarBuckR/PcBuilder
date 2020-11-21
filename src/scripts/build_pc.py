@@ -60,7 +60,7 @@ def build_pc(price, percentages, title, build_type = BuildType.Gaming.value, gpu
 
     leftover_price, cpu = pick_cpu(full_price(percentages.cpu, price), build_type, cpu_brand, leftover_price)
     leftover_price, motherboard = pick_motherboard(full_price(percentages.motherboard, price), cpu["Socket"], cpu["Chipset OC"], cpu["Chipset"], leftover_price)
-    leftover_price, ram = pick_ram(full_price(percentages.ram, price), motherboard, leftover_price)
+    leftover_price, ram = pick_ram(full_price(percentages.ram, price), motherboard["Memory Max"], motherboard["Memory Slots"], motherboard["MHZ"], leftover_price)
     leftover_price, gpu = pick_gpu(leftover_price, build_type, gpu_brand, leftover_price)
 
     pc = {}
@@ -110,6 +110,10 @@ def pick_cpu(spendable_price, build_type, cpu_brand, price):
 def pick_motherboard(spendable_price, socket, chipset_oc, chipset, price):
     atx = ["ATX", "EATX"] if spendable_price > 100 else ["Micro ATX", "Mini ITX", "ATX", "EATX"]
     
+    # hacky fix for a little bug that caused by scraped websites socket naming convention
+    if socket in ["TRX4", "TR4"]:
+        socket = "s" + socket
+
     motherboard = db.MOTHERBOARD.find_one({"Price":{"$lte": spendable_price*1.1}, "Atx": {"$in": atx}, "Socket": socket.replace(" ", ""), "Chipset": {"$in": chipset_oc.split(",")}}, sort=[("MHZ", -1)])
     if not motherboard:
         motherboard = db.MOTHERBOARD.find_one({"Price":{"$lte": spendable_price*1.1}, "Atx": {"$in": atx}, "Socket": socket.replace(" ", ""), "Chipset": {"$in": chipset.split(",")}}, sort=[("MHZ", -1)])
@@ -119,8 +123,8 @@ def pick_motherboard(spendable_price, socket, chipset_oc, chipset, price):
     else:
         return price, None
 
-def pick_ram(spendable_price, motherboard, price):
-    rams = db.RAM.find({"Price":{"$lte": spendable_price}, "Total Memory": {"$lte": motherboard["Memory Max"]}, "RAM Count" : {"$lte": motherboard["Memory Slots"]}, "MHZ": {"$lte": motherboard["MHZ"]}})
+def pick_ram(spendable_price, total_memory, memory_slots, mhz, price):
+    rams = db.RAM.find({"Price":{"$lte": spendable_price}, "Total Memory": {"$lte": total_memory}, "RAM Count" : {"$lte": memory_slots}, "MHZ": {"$lte": mhz}})
 
     ram = rams[0]
     for r in rams:
