@@ -113,7 +113,10 @@ class MainWindow(elementBuilder):
         groupBox = self.group_builder('Purpose')
         groupBox.setAlignment(Qt.AlignCenter)
         
+        self.pc_pp = BuildType.Gaming.value
+
         self.radioGaming = QRadioButton("Gaming")
+        self.radioGaming.setChecked(True)
         self.radioGaming.clicked.connect(self.onRadioButtonClicked)
         self.radioDesktop = QRadioButton("Casual")
         self.radioDesktop.clicked.connect(self.onRadioButtonClicked)
@@ -248,7 +251,7 @@ class MainWindow(elementBuilder):
             horizontal.addWidget(motherboard_group)
             horizontal.addWidget(ram_group)
 
-            if pc['SSD'] is not None:
+            if pc['SSD']:
                 ssd = [pc['SSD']['Brand'], pc['SSD']['Model'], pc['SSD']['Storage'],
                        pc['SSD']['Price'], pc['SSD']['M2'], pc['SSD']['Price-Performance']]
                 ssd_group = QGroupBox('SSD')
@@ -270,7 +273,7 @@ class MainWindow(elementBuilder):
                 ssd_group.setLayout(ssd_vertical)
                 horizontal.addWidget(ssd_group)
 
-            if pc['HDD'] is not None:
+            if pc['HDD']:
                 hdd = [pc['HDD']['Brand'], pc['HDD']['Model'],
                        pc['HDD']['Storage'], pc['HDD']['Price']]
                 hdd_group = QGroupBox('HDD')
@@ -319,7 +322,7 @@ class MainWindow(elementBuilder):
             group_out.setLayout(temp_vertical)
 
             vertical_layout.addWidget(group_out)
-            
+
         frame.setLayout(vertical_layout)
         scroll_area.setWidget(frame)
         return(scroll_area)
