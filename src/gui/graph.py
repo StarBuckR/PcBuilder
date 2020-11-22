@@ -75,7 +75,7 @@ class App(QWidget):
 
         for value in values:
             y = int(value[sortindex])   
-            bg = pg.BarGraphItem(x=[b+1], height=y, width=0.3, brush=color[a])
+            bg = pg.BarGraphItem(x=b, height=y, width=0.3, brush=color[a])
             plot.addItem(bg)         
 
             tooltip = ""
