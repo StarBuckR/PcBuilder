@@ -42,7 +42,7 @@ class App(QWidget):
             self.tabs.addTab(self.tab,names[tab])
     
             self.tab_layout = QVBoxLayout(self)
-            self.graph = self.createBarGraph(names[tab],"Price","Rank", 4)
+            self.graph = self.createBarGraph(names[tab],"Price","Rank", 20)
             self.tab_layout.addWidget(self.graph)
             self.tab.setLayout(self.tab_layout)
 
@@ -56,23 +56,22 @@ class App(QWidget):
 
         pg.setConfigOption('background', (37,35,35))
         plot = pg.PlotWidget()
-
+        
         bandict = ["URL","Url","Rank","Benchmark","Price-Performance","_id","Latency","Ram Count"]
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]
         values = mycol.find({}, sort=[(sortindex,-1)]).limit(number)
         a=0 #for changing colors
-        b=number #counter
+        b=1 #counter
 
         color = ['b','y','g','r','d','w','c','k']
 
         label_style = {'color': '#EEE', 'font-size': '14pt'}
         lbl1 = sortindex
         plot.setLabel("left", lbl1, **label_style)  
-        plot.setLabel("bottom", "Low to high",**label_style)
-        
-
+        plot.setLabel("bottom", "Sıralama",**label_style)
+    
         for value in values:
             y = int(value[sortindex])   
             bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
@@ -85,16 +84,20 @@ class App(QWidget):
             bg.setToolTip(tooltip.strip())
             plot.addItem(bg)  
 
-            plot.addLegend()
             if database != "MOTHERBOARD":
-                c2 = plot.plot(name=value["Brand"]+value["Model"],**label_style,pen=color[a])
+                text = pg.TextItem(text=value["Brand"]+value["Model"] , color=(200, 200, 200),angle=0)
+                text.setPos(b,y*1.05)
+                plot.addItem(text)
             else:
-                c2 = plot.plot(name=value["Brand"],**label_style,pen=color[a])
-            
+                text = pg.TextItem(text=value["Brand"], color=(200, 200, 200), angle=0)
+                text.setPos(b,y*1.05)
+                plot.addItem(text)
+
             a += 1
-            b -= 1
+            b += 1
             if a == 6:
                 a = 0
+        plot.setLimits(xMin = 0, xMax= b*1.1,yMin=-15)
         return plot
         
     # Changes Graph In The Tab    
