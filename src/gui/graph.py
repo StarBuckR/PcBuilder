@@ -23,6 +23,7 @@ class App(QWidget):
     def __init__(self,):
         super(QWidget, self).__init__()
         QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
+        self.pullBuilder()
         #creating main page
         self.title = 'Graph'
         self.left = 0
@@ -31,10 +32,10 @@ class App(QWidget):
         self.height = 500
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        """self.setStyleSheet(
+        self.setStyleSheet(
             "background-color:rgb(37,35,35);"
             "font-family:Quantico;"
-            "color:black;")"""
+            "color:black;")
 
         # Initialize Combobox Screen
         self.layout = QVBoxLayout()     
@@ -42,27 +43,38 @@ class App(QWidget):
         self.box2 = QComboBox()
         self.box2.currentTextChanged.connect(self.pullBarGraph)
 
-        self.names = [" ","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
+        self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
         self.box1.addItems(self.names)
         self.box1.currentTextChanged.connect(self.updateSecondBox)
 
         self.layout.addWidget(self.box1)
         self.layout.addWidget(self.box2)
 
-        self.graph = self.createBarGraph("MOTHERBOARD","Rank","Price", 20) 
+        pg.setConfigOption('background', (37,35,35))
+        self.graph = pg.PlotWidget()
         self.layout.addWidget(self.graph)
 
         self.setLayout(self.layout)
         self.show()
+
+    def pullBuilder(self):
+        pcs = builder(700,None)
+
+        self.motherboardId = pcs[0]["Motherboard"]["_id"]
+        self.ramId = pcs[0]["RAM"]["_id"]
+        self.gpuId = pcs[0]["GPU"]["_id"]
+        self.cpuId = pcs[0]["CPU"]["_id"]
+        self.ssdId = pcs[0]["SSD"]["_id"]
+        self.hddId = pcs[0]["HDD"]["_id"]
 
     def updateSecondBox(self):
         self.database = self.box1.currentText()
         text = self.box1.currentText()
         self.box2.clear()
         
-        if text == " ":
+        if text == "Please Choose Part":
             self.box2.setEnabled(False)
-        elif text == "MOTHERBOARD":
+        if text == "MOTHERBOARD":
             self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price" , "Memory Max", "MHZ"))
         elif text == "RAM":
@@ -94,7 +106,6 @@ class App(QWidget):
     # Creating a Bar Graph 
     def createBarGraph(self,database, sortindex, finderindex, number , name = None, brand = None):
 
-        pg.setConfigOption('background', (37,35,35))
         plot = pg.PlotWidget()
         
         bandict = ["URL","Url","Rank","Benchmark","Price-Performance","_id","Latency","Ram Count"]
