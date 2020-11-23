@@ -7,9 +7,16 @@ import pymongo
 import pyqtgraph as pg 
 import os
 
+sys.path.insert(1, os.getcwd() + '/src/helpers/')
+sys.path.insert(1, os.getcwd() + '/src/scripts/')
+
 if not os.path.exists("./fonts/OFL.txt"):
     import download_file as df
     df.download_fonts()
+
+from builder import builder
+
+pcs = builder(1000,None)
 
 class App(QWidget):
     # Main Page
@@ -24,19 +31,20 @@ class App(QWidget):
         self.height = 500
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        self.setStyleSheet(
+        """self.setStyleSheet(
             "background-color:rgb(37,35,35);"
             "font-family:Quantico;"
-            "color:black;")
+            "color:black;")"""
 
         # Initialize Combobox Screen
         self.layout = QVBoxLayout()     
         self.box1 = QComboBox()
         self.box2 = QComboBox()
+        self.box2.currentTextChanged.connect(self.pullBarGraph)
 
-        self.names = ["MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
-        self.box1.currentTextChanged.connect(self.updateSecondBox)
+        self.names = [" ","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
         self.box1.addItems(self.names)
+        self.box1.currentTextChanged.connect(self.updateSecondBox)
 
         self.layout.addWidget(self.box1)
         self.layout.addWidget(self.box2)
@@ -47,29 +55,41 @@ class App(QWidget):
         self.setLayout(self.layout)
         self.show()
 
-    def updateSecondBox(self,text):
+    def updateSecondBox(self):
+        self.database = self.box1.currentText()
+        text = self.box1.currentText()
         self.box2.clear()
-        if text == "MOTHERBOARD":
+        
+        if text == " ":
+            self.box2.setEnabled(False)
+        elif text == "MOTHERBOARD":
+            self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price" , "Memory Max", "MHZ"))
         elif text == "RAM":
+            self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price", "MHZ", "Total Memory", "CL"))
         elif text == "GPU":
+            self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
         elif text == "CPU":
+            self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
         elif text == "SSD":
+            self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price", "Storage"))
         elif text == "HDD":
+            self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price", "Storage"))
-        self.database = text
-        self.box2.currentTextChanged.connect(self.pullBarGraph)
 
     def pullBarGraph(self,text):
         self.sortindex = text
-        self.layout.removeWidget(self.graph)
-        self.graph = self.createBarGraph(self.database,self.sortindex,"Price-Performance", 20)  
-        self.layout.addWidget(self.graph)
 
+        if self.sortindex == "":
+            pass
+        else:
+            self.layout.removeWidget(self.graph)
+            self.graph = self.createBarGraph(self.database,self.sortindex,"Price-Performance", 20)
+            self.layout.addWidget(self.graph)
 
     # Creating a Bar Graph 
     def createBarGraph(self,database, sortindex, finderindex, number , name = None, brand = None):
@@ -128,3 +148,6 @@ class App(QWidget):
             print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())
 
 if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = App()
+    sys.exit(app.exec_())
