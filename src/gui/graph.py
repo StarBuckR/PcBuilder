@@ -29,27 +29,47 @@ class App(QWidget):
             "font-family:Quantico;"
             "color:black;")
 
-        self.layout = QVBoxLayout()
+        # Initialize Combobox Screen
+        self.layout = QVBoxLayout()     
+        self.box1 = QComboBox()
+        self.box2 = QComboBox()
 
-        # Initialize Tab Screen
-        self.tabs = QTabWidget()
+        self.names = ["MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
+        self.box1.currentTextChanged.connect(self.updateSecondBox)
+        self.box1.addItems(self.names)
 
-        # Adding Tabs With For Iteration
-        for tab in range(0,6):       
-            self.tab = QWidget()
+        self.layout.addWidget(self.box1)
+        self.layout.addWidget(self.box2)
 
-            names = ["MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
-            self.tabs.addTab(self.tab,names[tab])
-    
-            self.tab_layout = QVBoxLayout(self)
-            self.graph = self.createBarGraph(names[tab],"Price","Rank", 20)
-            self.tab_layout.addWidget(self.graph)
-            self.tab.setLayout(self.tab_layout)
+        self.graph = self.createBarGraph("MOTHERBOARD","Rank","Price", 20) 
+        self.layout.addWidget(self.graph)
 
-        # Add Tabs To Widget
-        self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
         self.show()
+
+    def updateSecondBox(self,text):
+        self.box2.clear()
+        if text == "MOTHERBOARD":
+            self.box2.addItems(("Rank", "Price" , "Memory Max", "MHZ"))
+        elif text == "RAM":
+            self.box2.addItems(("Rank", "Price", "MHZ", "Total Memory", "CL"))
+        elif text == "GPU":
+            self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
+        elif text == "CPU":
+            self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
+        elif text == "SSD":
+            self.box2.addItems(("Rank", "Price", "Storage"))
+        elif text == "HDD":
+            self.box2.addItems(("Rank", "Price", "Storage"))
+        self.database = text
+        self.box2.currentTextChanged.connect(self.pullBarGraph)
+
+    def pullBarGraph(self,text):
+        self.sortindex = text
+        self.layout.removeWidget(self.graph)
+        self.graph = self.createBarGraph(self.database,self.sortindex,"Price-Performance", 20)  
+        self.layout.addWidget(self.graph)
+
 
     # Creating a Bar Graph 
     def createBarGraph(self,database, sortindex, finderindex, number , name = None, brand = None):
@@ -108,6 +128,3 @@ class App(QWidget):
             print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
