@@ -16,7 +16,7 @@ if not os.path.exists("./fonts/OFL.txt"):
 
 from builder import builder
 
-class App(QWidget):
+class Graph(QWidget):
     # Main Page
     def __init__(self,Money):
         super(QWidget, self).__init__()
@@ -186,5 +186,5 @@ class App(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = App(700)
+    ex = Graph(700)
     sys.exit(app.exec_())
