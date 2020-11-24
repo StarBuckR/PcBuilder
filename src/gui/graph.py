@@ -74,7 +74,7 @@ class App(QWidget):
         
         if text == "Please Choose Part":
             self.box2.setEnabled(False)
-        if text == "MOTHERBOARD":
+        elif text == "MOTHERBOARD":
             self.box2.setEnabled(True)
             self.box2.addItems(("Rank", "Price" , "Memory Max", "MHZ"))
         elif text == "RAM":
@@ -100,11 +100,24 @@ class App(QWidget):
             pass
         else:
             self.layout.removeWidget(self.graph)
-            self.graph = self.createBarGraph(self.database,self.sortindex,"Price-Performance", 20)
-            self.layout.addWidget(self.graph)
+
+        if self.database == "MOTHERBOARD":
+            self.graph = self.createBarGraph(self.database,self.sortindex,self.motherboardId, 30)
+        elif self.database == "RAM":
+            self.graph = self.createBarGraph(self.database,self.sortindex,self.ramId, 30)
+        elif self.database == "GPU":
+            self.graph = self.createBarGraph(self.database,self.sortindex,self.gpuId, 30)
+        elif self.database == "CPU":
+            self.graph = self.createBarGraph(self.database,self.sortindex,self.cpuId, 30)
+        elif self.database == "SSD":
+            self.graph = self.createBarGraph(self.database,self.sortindex,self.ssdId, 30)
+        elif self.database == "HDD":
+            self.graph = self.createBarGraph(self.database,self.sortindex,self.hddId, 30)
+
+        self.layout.addWidget(self.graph)
 
     # Creating a Bar Graph 
-    def createBarGraph(self,database, sortindex, finderindex, number , name = None, brand = None):
+    def createBarGraph(self,database, sortindex, finderindex, number):
 
         plot = pg.PlotWidget()
         
@@ -112,21 +125,52 @@ class App(QWidget):
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]
-        values = mycol.find({}, sort=[(sortindex,-1)]).limit(number)
+
+        findervalue = mycol.find({"_id": finderindex})
+        if int(findervalue[0]["Rank"]) < 20:
+
+            itemrank = int(findervalue[0]["Rank"])
+            skipvalue =int(itemrank)
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number)
+
+        elif int(findervalue[0]["Rank"])>=20 and int(findervalue[0]["Rank"]) < 60:
+
+            itemrank = int(findervalue[0]["Rank"])
+            skipvalue =int(itemrank-(number/2))
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
+
+        elif int(findervalue[0]["Rank"])>=60:
+
+            itemrank = int(findervalue[0]["Rank"])
+            skipvalue = int(itemrank-(number))
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
+
+        #GPU ve HDD'de patlıyor. CPU skipvalue yetersiz.
+        #Edit1 GPU CPU bir bakıma halledildi, HDD'de gelen veri databasede olmadığı için patlıyor
+
         a=0 #for changing colors
         b=1 #counter
 
-        color = ['b','y','g','r','d','w','c','k']
+        color = ['y','w','c']
 
         label_style = {'color': '#EEE', 'font-size': '14pt'}
         lbl1 = sortindex
         plot.setLabel("left", lbl1, **label_style)  
         plot.setLabel("bottom", "Sıralama",**label_style)
-    
-        for value in values:
+
+        sort_values = sorted(values, key = lambda i: i[sortindex])
+
+        for value in sort_values:
             y = int(value[sortindex])   
-            bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
-            plot.addItem(bg)         
+            if value["Rank"] == findervalue[0]["Rank"]:
+                bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush='b')
+                self.xaxis = [b]
+                self.yaxis = y
+                plot.addItem(bg) 
+
+            else:
+                bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
+                plot.addItem(bg) 
 
             tooltip = ""
             for key in value:
@@ -146,17 +190,11 @@ class App(QWidget):
 
             a += 1
             b += 1
-            if a == 6:
+            if a == 3:
                 a = 0
         plot.setLimits(xMin = 0, xMax= b*1.1,yMin=-15)
+
         return plot
-        
-    # Changes Graph In The Tab    
-    @pyqtSlot()
-    def on_click(self):
-        print("\n")
-        for currentQTableWidgetItem in self.tableWidget.selectedItems():
-            print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
