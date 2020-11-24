@@ -182,7 +182,6 @@ class MainWindow(elementBuilder):
             pass
         self.stats_button=self.button_builder("Get Stats Table",self.width/4,self.height/25) 
         self.stats_button.clicked.connect(self.call_stats)
-        """checked = graph_builder(pcs)"""
         
         self.layout_t.addWidget(self.stats_button)
 
