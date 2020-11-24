@@ -41,7 +41,7 @@ class App(QWidget):
         self.box2 = QComboBox()
         self.box2.currentTextChanged.connect(self.pullBarGraph)
 
-        self.bandict = ["URL","Url","Rank","Benchmark","_id","Latency","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
+        self.bandict = ["URL","Url","Benchmark","_id","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
         self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
         self.box1.addItems(self.names)
         self.box1.currentTextChanged.connect(self.updateSecondBox)
@@ -148,7 +148,7 @@ class App(QWidget):
 
         for value in sort_values:
             
-            y = int(value[sortindex])  
+            y = float(value[sortindex])  
 
             if value["Rank"] == findervalue[0]["Rank"]:
                 bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush='b')
@@ -168,7 +168,7 @@ class App(QWidget):
             plot.addItem(bg)  
 
             if database != "MOTHERBOARD":
-                text = pg.TextItem(text=value["Brand"]+value["Model"] , color=(200, 200, 200),angle=0)
+                text = pg.TextItem(text=value["Brand"]+" "+value["Model"] , color=(200, 200, 200),angle=0)
                 text.setPos(b,y*1.05)
                 plot.addItem(text)
             else:
