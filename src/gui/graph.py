@@ -16,13 +16,21 @@ if not os.path.exists("./fonts/OFL.txt"):
 
 from builder import builder
 
-class App(QWidget):
+class Graph(QWidget):
+    
     # Main Page
-    def __init__(self,Amount):
+    def __init__(self,pcs, motherboard_id,ram_id,gpu_id,cpu_id,ssd_id = None,hdd_id = None):
         super(QWidget, self).__init__()
         QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
-        self.pullBuilder(Amount)
         #creating main page
+        self.pcs = pcs
+        self.motherboard_id = motherboard_id
+        self.ram_id = ram_id
+        self.gpu_id = gpu_id
+        self.cpu_id = cpu_id
+        self.ssd_id = ssd_id
+        self.hdd_id = hdd_id
+
         self.title = 'Graph'
         self.left = 0
         self.top = 0
@@ -33,17 +41,29 @@ class App(QWidget):
         self.setStyleSheet(
             "background-color:rgb(37,35,35);"
             "font-family:Quantico;"
-            "color:black;")
+            "color:white;"
+            """QToolTip { 
+                           background-color: white; 
+                           color: black;                
+                           }""")
 
         # Initialize Combobox Screen
         self.layout = QVBoxLayout()     
         self.box1 = QComboBox()
         self.box2 = QComboBox()
-        self.box2.currentTextChanged.connect(self.pullBarGraph)
+        self.box2.currentTextChanged.connect(self.pull_bar_graph)
 
-        self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
+        self.bandict = ["URL","Url","Benchmark","_id","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
+
+        if self.hdd_id == None:
+            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD"]
+        elif self.ssd_id == None:
+            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD"]
+        else:
+            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD","SSD"]
+
         self.box1.addItems(self.names)
-        self.box1.currentTextChanged.connect(self.updateSecondBox)
+        self.box1.currentTextChanged.connect(self.update_second_box)
 
         self.layout.addWidget(self.box1)
         self.layout.addWidget(self.box2)
@@ -55,43 +75,26 @@ class App(QWidget):
         self.setLayout(self.layout)
         self.show()
 
-    def pullBuilder(self,Amount):
-        pcs = builder(Amount,None)
-
-        self.motherboardId = pcs[0]["Motherboard"]["_id"]
-        self.ramId = pcs[0]["RAM"]["_id"]
-        self.gpuId = pcs[0]["GPU"]["_id"]
-        self.cpuId = pcs[0]["CPU"]["_id"]
-        self.ssdId = pcs[0]["SSD"]["_id"]
-        self.hddId = pcs[0]["HDD"]["_id"]
-
-    def updateSecondBox(self):
+    def update_second_box(self):
         self.database = self.box1.currentText()
         text = self.box1.currentText()
         self.box2.clear()
-        
-        if text == "Please Choose Part":
-            self.box2.setEnabled(False)
-        elif text == "MOTHERBOARD":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price" , "Memory Max", "MHZ"))
-        elif text == "RAM":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price", "MHZ", "Total Memory", "CL"))
-        elif text == "GPU":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
-        elif text == "CPU":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
-        elif text == "SSD":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price", "Storage"))
-        elif text == "HDD":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price", "Storage"))
+        self.box2.setEnabled(False)
 
-    def pullBarGraph(self,text):
+        values = self.pcs
+        tooltip = ""
+
+        for value in values:
+            if text =="MOTHERBOARD":
+                text = "Motherboard"
+            
+            if not value[text] in self.bandict:
+                for keys in value[text]:
+                    if not keys in self.bandict:
+                        self.box2.addItem(keys)
+                        self.box2.setEnabled(True)
+  
+    def pull_bar_graph(self,text):
         self.sortindex = text
 
         if self.sortindex == "":
@@ -100,26 +103,25 @@ class App(QWidget):
             self.layout.removeWidget(self.graph)
 
         if self.database == "MOTHERBOARD":
-            self.graph = self.createBarGraph(self.database,self.sortindex,self.motherboardId, 30)
+            self.graph = self.create_bar_graph(self.database,self.sortindex,self.motherboard_id, 30)
         elif self.database == "RAM":
-            self.graph = self.createBarGraph(self.database,self.sortindex,self.ramId, 30)
+            self.graph = self.create_bar_graph(self.database,self.sortindex,self.ram_id, 30)
         elif self.database == "GPU":
-            self.graph = self.createBarGraph(self.database,self.sortindex,self.gpuId, 30)
+            self.graph = self.create_bar_graph(self.database,self.sortindex,self.gpu_id, 30)
         elif self.database == "CPU":
-            self.graph = self.createBarGraph(self.database,self.sortindex,self.cpuId, 30)
+            self.graph = self.create_bar_graph(self.database,self.sortindex,self.cpu_id, 30)
         elif self.database == "SSD":
-            self.graph = self.createBarGraph(self.database,self.sortindex,self.ssdId, 30)
+            self.graph = self.create_bar_graph(self.database,self.sortindex,self.ssd_id, 30)
         elif self.database == "HDD":
-            self.graph = self.createBarGraph(self.database,self.sortindex,self.hddId, 30)
+            self.graph = self.create_bar_graph(self.database,self.sortindex,self.hdd_id, 30)
 
         self.layout.addWidget(self.graph)
 
     # Creating a Bar Graph 
-    def createBarGraph(self,database, sortindex, finderindex, number):
-
-        plot = pg.PlotWidget()
+    def create_bar_graph(self,database, sortindex, finderindex, number):
         
-        bandict = ["URL","Url","Rank","Benchmark","Price-Performance","_id","Latency","Ram Count"]
+        plot = pg.PlotWidget()
+       
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]
@@ -140,14 +142,10 @@ class App(QWidget):
             skipvalue = int(itemrank-(number))
             values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
 
-        #GPU ve HDD'de patlıyor. CPU skipvalue yetersiz.
-        #Edit1 GPU CPU bir bakıma halledildi, HDD'de gelen veri databasede olmadığı için patlıyor
-        #Edit2 HDD'de gelen veri databasede olmadığı için patlıyor
-
         a=0 #for changing colors
         b=1 #counter
 
-        color = ['y','w','c']
+        color = ['y','w']
 
         label_style = {'color': '#EEE', 'font-size': '14pt'}
         lbl1 = sortindex
@@ -158,7 +156,7 @@ class App(QWidget):
 
         for value in sort_values:
             
-            y = int(value[sortindex])  
+            y = float(value[sortindex])  
 
             if value["Rank"] == findervalue[0]["Rank"]:
                 bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush='b')
@@ -172,29 +170,49 @@ class App(QWidget):
 
             tooltip = ""
             for key in value:
-                if not key in bandict:
+                if not key in self.bandict:
                     tooltip += key + ": " + str(value[key]) + "\n"
             bg.setToolTip(tooltip.strip())
+            
             plot.addItem(bg)  
 
             if database != "MOTHERBOARD":
-                text = pg.TextItem(text=value["Brand"]+value["Model"] , color=(200, 200, 200),angle=0)
-                text.setPos(b,y*1.05)
+                text = pg.TextItem(text=value["Brand"]+" "+value["Model"] , color=(200, 200, 200),angle=0)
+                text.setPos(b-0.4,a-1)
                 plot.addItem(text)
             else:
                 text = pg.TextItem(text=value["Brand"], color=(200, 200, 200), angle=0)
-                text.setPos(b,y*1.05)
+                text.setPos(b-0.4,a-1)
                 plot.addItem(text)
 
             a += 1
             b += 1
-            if a == 3:
+            if a == 2:
                 a = 0
-        plot.setLimits(xMin = 0, xMax= b*1.1,yMin=-15)
+        plot.setLimits(xMin = 0, xMax= b*1.1,yMin=-15,yMax=y*1.5)
 
         return plot
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App(700)
-    sys.exit(app.exec_())
+def graph_builder(pcs):
+    motherboard_id = pcs[0]["Motherboard"]["_id"]
+    ram_id = pcs[0]["RAM"]["_id"]
+    gpu_id = pcs[0]["GPU"]["_id"]
+    cpu_id = pcs[0]["CPU"]["_id"]
+
+    if pcs[0]["SSD"]:
+        ssd_id = pcs[0]["SSD"]["_id"]
+    else:
+        ssd_id = None
+
+    if pcs[0]["HDD"]:
+        hdd_id = pcs[0]["HDD"]["_id"]
+    else:
+        hdd_id = None
+
+    window = Graph(pcs, motherboard_id,ram_id,gpu_id,cpu_id,ssd_id,hdd_id)
+    window.show()
+    app.exec_()
+
+    
+        
+        

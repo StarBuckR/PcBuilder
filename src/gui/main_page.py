@@ -13,6 +13,8 @@ from build_pc import build_pc, BuildType, GpuBrand, CpuBrand, StorageType, get_b
 from percentage import Percentage
 from builder import builder
 
+from graph import graph_builder
+
 if not os.path.exists("./fonts/OFL.txt"):
     import download_file as df
     df.download_fonts()
@@ -32,13 +34,13 @@ class MainWindow(elementBuilder):
         self.layout_main.setAlignment(Qt.AlignTop)
         layout_f = QHBoxLayout()
         layout_s = QHBoxLayout()
-        layout_t = QHBoxLayout()
+        self.layout_t = QHBoxLayout()
         layout_label = QHBoxLayout()
         self.desktop = QApplication.desktop()  # Size setup
         self.screenRect = self.desktop.screenGeometry()
         self.height = self.screenRect.height()
         self.width = self.screenRect.width()
-        self.setGeometry(100, 100, int(self.width/2), int(self.height/10))
+        self.setGeometry(100, 100, int(self.width-200), int(self.height-300))
         
         #adds label
         self.budget_label = self.label_b("MY BUDGET IS", 45)
@@ -49,7 +51,7 @@ class MainWindow(elementBuilder):
         self.button = self.button_builder(
             "BUILD IT", self.width/4, self.height/25)
         self.button.clicked.connect(self.add_pc)
-
+                
         # Creates purpose and additional layouts
         purpose = self.purpose_layout()
         additional = self.additional()
@@ -57,7 +59,7 @@ class MainWindow(elementBuilder):
         # to center widgets i added widgets to the horizontal layouts
         layout_s.addWidget(self.pricepicker)
         layout_f.addWidget(purpose)
-        layout_t.addWidget(self.button)
+        self.layout_t.addWidget(self.button)
 
         # Creates percentage label and value
         self.percentage_v = 100
@@ -67,14 +69,15 @@ class MainWindow(elementBuilder):
         # adds all widgets and layouts to main layout
         self.layout_main.addWidget(self.budget_label, 0, 1)
         self.layout_main.addLayout(layout_s, 1, 1)
-        self.layout_main.addLayout(layout_f, 2, 1)
-        self.layout_main.addLayout(layout_label, 3, 1)
-        self.layout_main.addLayout(self.percentage_bar(), 4, 1)
-        self.layout_main.addWidget(self.percentage_vl, 5, 1)
-        self.layout_main.addWidget(additional, 6, 1)
-        self.layout_main.addLayout(layout_t, 8, 1)
+        self.layout_main.addWidget(self.label_b('Dollars',20),2,1)
+        self.layout_main.addLayout(layout_f, 3, 1)
+        self.layout_main.addLayout(layout_label, 4, 1)
+        self.layout_main.addLayout(self.percentage_bar(), 5, 1)
+        self.layout_main.addWidget(self.percentage_vl, 6, 1)
+        self.layout_main.addWidget(additional, 7, 1)
+        self.layout_main.addLayout(self.layout_t, 10, 1)
 
-        #sets centrel widget as layout
+        #sets central widget as layout
         widget = QWidget()
         widget.setLayout(self.layout_main)
         self.setCentralWidget(widget)
@@ -172,6 +175,16 @@ class MainWindow(elementBuilder):
         frame = QFrame()
         frame.setMinimumHeight(int(self.height/23))
         frame.setMinimumWidth(int(self.width/1.08))
+
+        try:    
+            self.layout_t.removeWidget(self.stats_button)
+        except: 
+            pass
+        self.stats_button=self.button_builder("Get Stats Table",self.width/4,self.height/25) 
+        self.stats_button.clicked.connect(self.call_stats)
+        """checked = graph_builder(pcs)"""
+        
+        self.layout_t.addWidget(self.stats_button)
 
         for pc in pcs:
             temp_vertical = QVBoxLayout()
@@ -325,11 +338,16 @@ class MainWindow(elementBuilder):
 
         frame.setLayout(vertical_layout)
         scroll_area.setWidget(frame)
+        
         return(scroll_area)
 
     #---------------------------------------------------------------Controllers-------------------------------------------------------------------#
 
+    def call_stats(self):
+        graph_builder(self.pcs)
+
     # Checks all conditions. If conditions meet calls builded_pc function and adds new layout
+    
     def add_pc(self):
         if (self.radioDesktop.isChecked() or self.radioGaming.isChecked() or self.radioWorkstation.isChecked()) and \
                 ((self.pricepicker.text() != "")):
@@ -339,8 +357,9 @@ class MainWindow(elementBuilder):
             cpu, gpu, motherboard, ram, ssd, hdd, psu_and_case = self.getpercentages()
             if price > 550:
                 if cpu+gpu+motherboard+ram+ssd+hdd+psu_and_case == 100:
-                    pcs = builder(price, Percentage(gpu, cpu, ram, motherboard, ssd, hdd, psu_and_case), pc_type, gpu_brand, cpu_brand, storage_type)
-                    self.layout_main.addWidget(self.builded_pc(pcs), 7, 1)
+                    self.pcs = builder(price, Percentage(gpu, cpu, ram, motherboard, ssd, hdd, psu_and_case), pc_type, gpu_brand, cpu_brand, storage_type)
+                    self.layout_main.addWidget(self.builded_pc(self.pcs), 9, 1)
+
                 else:
                     self.errorHandler(
                         "Summary of the percentages cannot be more or less than 100% ")
