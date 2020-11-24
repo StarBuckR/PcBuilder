@@ -19,9 +19,16 @@ from builder import builder
 class Graph(QWidget):
     
     # Main Page
+<<<<<<< HEAD
     def __init__(self,pcs, motherboard_id,ram_id,gpu_id,cpu_id,ssd_id = None,hdd_id = None):
         super(QWidget, self).__init__()
         QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
+=======
+    def __init__(self,Money):
+        super(QWidget, self).__init__()
+        QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
+        self.pullBuilder(Money)
+>>>>>>> upstream/main
         #creating main page
         self.pcs = pcs
         self.motherboard_id = motherboard_id
@@ -62,6 +69,11 @@ class Graph(QWidget):
         else:
             self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD","SSD"]
 
+<<<<<<< HEAD
+=======
+        self.bandict = ["URL","Url","Rank","Benchmark","_id","Latency","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
+        self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
+>>>>>>> upstream/main
         self.box1.addItems(self.names)
         self.box1.currentTextChanged.connect(self.update_second_box)
 
@@ -75,26 +87,52 @@ class Graph(QWidget):
         self.setLayout(self.layout)
         self.show()
 
+<<<<<<< HEAD
     def update_second_box(self):
+=======
+    def pullBuilder(self,Amount):
+        self.pcs = builder(Amount,None)
+
+        self.motherboardId = self.pcs[0]["Motherboard"]["_id"]
+        self.ramId = self.pcs[0]["RAM"]["_id"]
+        self.gpuId = self.pcs[0]["GPU"]["_id"]
+        self.cpuId = self.pcs[0]["CPU"]["_id"]
+        self.ssdId = self.pcs[0]["SSD"]["_id"]
+        self.hddId = self.pcs[0]["HDD"]["_id"]
+
+    def updateSecondBox(self):
+>>>>>>> upstream/main
         self.database = self.box1.currentText()
         text = self.box1.currentText()
         self.box2.clear()
         self.box2.setEnabled(False)
 
         values = self.pcs
+<<<<<<< HEAD
+=======
+        """print(values)"""
+>>>>>>> upstream/main
         tooltip = ""
 
         for value in values:
             if text =="MOTHERBOARD":
                 text = "Motherboard"
+<<<<<<< HEAD
             
+=======
+            print(text)
+>>>>>>> upstream/main
             if not value[text] in self.bandict:
                 for keys in value[text]:
                     if not keys in self.bandict:
                         self.box2.addItem(keys)
                         self.box2.setEnabled(True)
   
+<<<<<<< HEAD
     def pull_bar_graph(self,text):
+=======
+    def pullBarGraph(self,text):
+>>>>>>> upstream/main
         self.sortindex = text
 
         if self.sortindex == "":
@@ -120,8 +158,11 @@ class Graph(QWidget):
     # Creating a Bar Graph 
     def create_bar_graph(self,database, sortindex, finderindex, number):
         
+<<<<<<< HEAD
         plot = pg.PlotWidget()
        
+=======
+>>>>>>> upstream/main
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]

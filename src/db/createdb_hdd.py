@@ -77,17 +77,19 @@ hdd_model_and_price_parser()
 client = MongoClient('mongodb://localhost:27017/')
 db = client['PcBuilder']
 
+i = 1
 for hdd in hdds:
     if hdd["Price"]:
         post = {
                 "Brand": hdd["Brand"],
                 "Model": hdd["Model"],
                 "URL": hdd["URL"],
-                "Rank": int(hdd["Rank"]),
+                "Rank": i,
                 "Storage": int(hdd["Storage"]),
                 "Price": hdd["Price"],
                 "Benchmark": float(hdd["Benchmark"])
             }
-
+        i += 1
+        
         posts = db.HDD
         post_id = posts.insert_one(post).inserted_id
