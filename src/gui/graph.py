@@ -18,10 +18,10 @@ from builder import builder
 
 class App(QWidget):
     # Main Page
-    def __init__(self,Amount):
+    def __init__(self,Money):
         super(QWidget, self).__init__()
         QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
-        self.pullBuilder(Amount)
+        self.pullBuilder(Money)
         #creating main page
         self.title = 'Graph'
         self.left = 0
@@ -41,6 +41,7 @@ class App(QWidget):
         self.box2 = QComboBox()
         self.box2.currentTextChanged.connect(self.pullBarGraph)
 
+        self.bandict = ["URL","Url","Rank","Benchmark","_id","Latency","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
         self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD","HDD"]
         self.box1.addItems(self.names)
         self.box1.currentTextChanged.connect(self.updateSecondBox)
@@ -56,41 +57,35 @@ class App(QWidget):
         self.show()
 
     def pullBuilder(self,Amount):
-        pcs = builder(Amount,None)
+        self.pcs = builder(Amount,None)
 
-        self.motherboardId = pcs[0]["Motherboard"]["_id"]
-        self.ramId = pcs[0]["RAM"]["_id"]
-        self.gpuId = pcs[0]["GPU"]["_id"]
-        self.cpuId = pcs[0]["CPU"]["_id"]
-        self.ssdId = pcs[0]["SSD"]["_id"]
-        self.hddId = pcs[0]["HDD"]["_id"]
+        self.motherboardId = self.pcs[0]["Motherboard"]["_id"]
+        self.ramId = self.pcs[0]["RAM"]["_id"]
+        self.gpuId = self.pcs[0]["GPU"]["_id"]
+        self.cpuId = self.pcs[0]["CPU"]["_id"]
+        self.ssdId = self.pcs[0]["SSD"]["_id"]
+        self.hddId = self.pcs[0]["HDD"]["_id"]
 
     def updateSecondBox(self):
         self.database = self.box1.currentText()
         text = self.box1.currentText()
         self.box2.clear()
-        
-        if text == "Please Choose Part":
-            self.box2.setEnabled(False)
-        elif text == "MOTHERBOARD":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price" , "Memory Max", "MHZ"))
-        elif text == "RAM":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price", "MHZ", "Total Memory", "CL"))
-        elif text == "GPU":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
-        elif text == "CPU":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price","Gameplay Benchmark","Desktop Benchmark","Workstation Benchmark"))
-        elif text == "SSD":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price", "Storage"))
-        elif text == "HDD":
-            self.box2.setEnabled(True)
-            self.box2.addItems(("Rank", "Price", "Storage"))
+        self.box2.setEnabled(False)
 
+        values = self.pcs
+        """print(values)"""
+        tooltip = ""
+
+        for value in values:
+            if text =="MOTHERBOARD":
+                text = "Motherboard"
+            print(text)
+            if not value[text] in self.bandict:
+                for keys in value[text]:
+                    if not keys in self.bandict:
+                        self.box2.addItem(keys)
+                        self.box2.setEnabled(True)
+  
     def pullBarGraph(self,text):
         self.sortindex = text
 
@@ -119,7 +114,6 @@ class App(QWidget):
 
         plot = pg.PlotWidget()
         
-        bandict = ["URL","Url","Rank","Benchmark","Price-Performance","_id","Latency","Ram Count"]
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]
@@ -139,10 +133,6 @@ class App(QWidget):
             itemrank = int(findervalue[0]["Rank"])
             skipvalue = int(itemrank-(number))
             values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
-
-        #GPU ve HDD'de patlıyor. CPU skipvalue yetersiz.
-        #Edit1 GPU CPU bir bakıma halledildi, HDD'de gelen veri databasede olmadığı için patlıyor
-        #Edit2 HDD'de gelen veri databasede olmadığı için patlıyor
 
         a=0 #for changing colors
         b=1 #counter
@@ -172,7 +162,7 @@ class App(QWidget):
 
             tooltip = ""
             for key in value:
-                if not key in bandict:
+                if not key in self.bandict:
                     tooltip += key + ": " + str(value[key]) + "\n"
             bg.setToolTip(tooltip.strip())
             plot.addItem(bg)  
