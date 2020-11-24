@@ -174,7 +174,6 @@ class App(QWidget):
             for key in value:
                 if not key in bandict:
                     tooltip += key + ": " + str(value[key]) + "\n"
-
             bg.setToolTip(tooltip.strip())
             plot.addItem(bg)  
 
@@ -182,7 +181,6 @@ class App(QWidget):
                 text = pg.TextItem(text=value["Brand"]+value["Model"] , color=(200, 200, 200),angle=0)
                 text.setPos(b,y*1.05)
                 plot.addItem(text)
-
             else:
                 text = pg.TextItem(text=value["Brand"], color=(200, 200, 200), angle=0)
                 text.setPos(b,y*1.05)
