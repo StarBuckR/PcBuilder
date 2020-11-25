@@ -39,13 +39,16 @@ class Graph(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setStyleSheet(
+            
             "background-color:rgb(37,35,35);"
             "font-family:Quantico;"
-            "color:white;"
             """QToolTip { 
-                           background-color: white; 
-                           color: black;                
-                           }""")
+                        "font-family:Quantico;"
+                        "background-color:rgb(37,35,35);"
+                        color: black; 
+                           }"""
+            "color:white;"
+            )
 
         # Initialize Combobox Screen
         self.layout = QVBoxLayout()     
@@ -172,8 +175,7 @@ class Graph(QWidget):
             for key in value:
                 if not key in self.bandict:
                     tooltip += key + ": " + str(value[key]) + "\n"
-            bg.setToolTip(tooltip.strip())
-            
+            bg.setToolTip(tooltip.strip())        
             plot.addItem(bg)  
 
             if database != "MOTHERBOARD":
