@@ -23,6 +23,7 @@ class Graph(QWidget):
         super(QWidget, self).__init__()
         QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
         #creating main page
+        self.order_bool = True
         self.pcs = pcs
         self.motherboard_id = motherboard_id
         self.ram_id = ram_id
@@ -38,20 +39,14 @@ class Graph(QWidget):
         self.height = 500
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        self.setStyleSheet(
-            
+        self.setStyleSheet(       
             "background-color:rgb(37,35,35);"
             "font-family:Quantico;"
-            """QToolTip { 
-                        "font-family:Quantico;"
-                        "background-color:rgb(37,35,35);"
-                        color: black; 
-                           }"""
             "color:white;"
             )
 
         # Initialize Combobox Screen
-        self.layout = QVBoxLayout()     
+        self.layout = QVBoxLayout()        
         self.box1 = QComboBox()
         self.box2 = QComboBox()
         self.box2.currentTextChanged.connect(self.pull_bar_graph)
@@ -70,6 +65,10 @@ class Graph(QWidget):
 
         self.layout.addWidget(self.box1)
         self.layout.addWidget(self.box2)
+
+        self.button = QPushButton('Toggle Sorting Order', self)
+        self.layout.addWidget(self.button) 
+        self.button.setEnabled(False)
 
         pg.setConfigOption('background', (37,35,35))
         self.graph = pg.PlotWidget()
@@ -106,28 +105,31 @@ class Graph(QWidget):
             self.layout.removeWidget(self.graph)
 
         if self.database == "MOTHERBOARD":
-            self.graph = self.create_bar_graph(self.database,self.sortindex,self.motherboard_id, 30)
+            self.finderindex = self.motherboard_id
         elif self.database == "RAM":
-            self.graph = self.create_bar_graph(self.database,self.sortindex,self.ram_id, 30)
+            self.finderindex = self.ram_id
         elif self.database == "GPU":
-            self.graph = self.create_bar_graph(self.database,self.sortindex,self.gpu_id, 30)
+            self.finderindex = self.gpu_id
         elif self.database == "CPU":
-            self.graph = self.create_bar_graph(self.database,self.sortindex,self.cpu_id, 30)
+            self.finderindex = self.cpu_id
         elif self.database == "SSD":
-            self.graph = self.create_bar_graph(self.database,self.sortindex,self.ssd_id, 30)
+            self.finderindex = self.ssd_id
         elif self.database == "HDD":
-            self.graph = self.create_bar_graph(self.database,self.sortindex,self.hdd_id, 30)
+            self.finderindex = self.hdd_id
 
+        self.graph = self.create_bar_graph(self.database,self.sortindex,self.finderindex, 30, 1)
         self.layout.addWidget(self.graph)
 
     # Creating a Bar Graph 
-    def create_bar_graph(self,database, sortindex, finderindex, number):
-        
-        plot = pg.PlotWidget()
-       
+    def create_bar_graph(self,database, sortindex, finderindex, number, sort_number):
+        self.plot = pg.PlotWidget()
+        self.plot.setStyleSheet("color:black;") 
+
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]
+
+        print(sort_number)
 
         findervalue = mycol.find({"_id": finderindex})
         if int(findervalue[0]["Rank"]) < 20:
@@ -152,48 +154,67 @@ class Graph(QWidget):
 
         label_style = {'color': '#EEE', 'font-size': '14pt'}
         lbl1 = sortindex
-        plot.setLabel("left", lbl1, **label_style)  
-        plot.setLabel("bottom", "Sıralama",**label_style)
+        self.plot.setLabel("left", lbl1, **label_style)  
+        self.plot.setLabel("bottom", "Sıralama",**label_style)
 
-        sort_values = sorted(values, key = lambda i: i[sortindex])
+        if(sort_number == 1):
+            sort_values = sorted(values, key = lambda i: i[sortindex])
+        else: 
+            sort_values = reversed(sorted(values, key = lambda i: i[sortindex]))
 
         for value in sort_values:
+
             
             y = float(value[sortindex])  
 
             if value["Rank"] == findervalue[0]["Rank"]:
                 bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush='b')
-                self.xaxis = [b]
-                self.yaxis = y
-                plot.addItem(bg) 
+                self.plot.addItem(bg) 
 
             else:
                 bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
-                plot.addItem(bg) 
+                self.plot.addItem(bg) 
 
             tooltip = ""
             for key in value:
                 if not key in self.bandict:
                     tooltip += key + ": " + str(value[key]) + "\n"
             bg.setToolTip(tooltip.strip())        
-            plot.addItem(bg)  
-
-            if database != "MOTHERBOARD":
-                text = pg.TextItem(text=value["Brand"]+" "+value["Model"] , color=(200, 200, 200),angle=0)
-                text.setPos(b-0.4,a-1)
-                plot.addItem(text)
+            self.plot.addItem(bg)  
+            if a == 1:
+                if database != "MOTHERBOARD":
+                    text = pg.TextItem(text=value["Brand"]+" "+value["Model"] , color=(200, 200, 200),angle=0)
+                    text.setPos(b-0.54,a-1.05)
+                    self.plot.addItem(text)
+                else:
+                    text = pg.TextItem(text=value["Brand"], color=(200, 200, 200), angle=0)
+                    text.setPos(b-0.54,a-1.05)
+                    self.plot.addItem(text)
             else:
-                text = pg.TextItem(text=value["Brand"], color=(200, 200, 200), angle=0)
-                text.setPos(b-0.4,a-1)
-                plot.addItem(text)
+                if database != "MOTHERBOARD":
+                    text = pg.TextItem(text=value["Brand"]+" "+value["Model"] , color=(200, 200, 200),angle=0)
+                    text.setPos(b-0.54,y*1.05)
+                    self.plot.addItem(text)
+                else:
+                    text = pg.TextItem(text=value["Brand"], color=(200, 200, 200), angle=0)
+                    text.setPos(b-0.54,y*1.05)
+                    self.plot.addItem(text)
 
             a += 1
             b += 1
             if a == 2:
                 a = 0
-        plot.setLimits(xMin = 0, xMax= b*1.1,yMin=-15,yMax=y*1.5)
+        self.plot.setLimits(xMin = 0, xMax= b,yMin=y*-1.05,yMax=y*1.5)
 
-        return plot
+        self.button.setEnabled(True)   
+        self.sort_number = sort_number
+        self.button.clicked.connect(self.change_number) 
+
+        return self.plot
+
+    def change_number(self):
+        self.order_bool = not self.order_bool
+        self.plot.getViewBox().invertX(self.order_bool)
 
 def graph_builder(pcs):
     motherboard_id = pcs[0]["Motherboard"]["_id"]
