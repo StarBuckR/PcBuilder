@@ -96,31 +96,31 @@ class Graph(QWidget):
                     self.box2.setEnabled(True)
 
     def pull_bar_graph(self,text):
-        self.sortindex = text
+        self.sort_index = text
 
-        if self.sortindex == "":
+        if self.sort_index == "":
             pass
         else:
             self.layout.removeWidget(self.graph)
 
         if self.database == "MOTHERBOARD":
-            self.finderindex = self.motherboard_id
+            self.finder_index = self.motherboard_id
         elif self.database == "RAM":
-            self.finderindex = self.ram_id
+            self.finder_index = self.ram_id
         elif self.database == "GPU":
-            self.finderindex = self.gpu_id
+            self.finder_index = self.gpu_id
         elif self.database == "CPU":
-            self.finderindex = self.cpu_id
+            self.finder_index = self.cpu_id
         elif self.database == "SSD":
-            self.finderindex = self.ssd_id
+            self.finder_index = self.ssd_id
         elif self.database == "HDD":
-            self.finderindex = self.hdd_id
+            self.finder_index = self.hdd_id
 
-        self.graph = self.create_bar_graph(self.database,self.sortindex,self.finderindex, 30, 1)
+        self.graph = self.create_bar_graph(self.database,self.sort_index,self.finder_index, 30, 1)
         self.layout.addWidget(self.graph)
 
     # Creating a Bar Graph 
-    def create_bar_graph(self,database, sortindex, finderindex, number, sort_number):
+    def create_bar_graph(self,database, sort_index, finder_index, number, sort_number):
         self.plot = pg.PlotWidget()
         self.plot.setStyleSheet("color:black;") 
 
@@ -128,47 +128,50 @@ class Graph(QWidget):
         mydb = myclient["PcBuilder"]
         mycol = mydb[database]
 
-        print(sort_number)
+        finder_value = mycol.find({"_id": finder_index})
 
-        findervalue = mycol.find({"_id": finderindex})
+        if self.database == "GPU":
+            finder_id_hex = int(str(finder_index),16)
+            first_id_index = mycol.find_one({})
+            first_id_hex = int(str(first_id_index["_id"]),16)
+            skip_value = finder_id_hex-first_id_hex
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value-1)
 
-        
-        if int(findervalue[0]["Rank"]) < 20:
-            itemrank = int(findervalue[0]["Rank"])
-            skipvalue =int(itemrank)
-            values = mycol.find({}, sort=[("Rank",1)]).limit(number)
+        else:              
+            if int(finder_value[0]["Rank"]) < 20:
+                item_rank = int(finder_value[0]["Rank"])
+                skip_value =int(item_rank)
+                values = mycol.find({}, sort=[("Rank",1)]).limit(number)
 
-        elif int(findervalue[0]["Rank"])>=20 and int(findervalue[0]["Rank"]) < 60:
-            itemrank = int(findervalue[0]["Rank"])
-            skipvalue =int(itemrank-(number/2))
-            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
+            elif int(finder_value[0]["Rank"])>=20 and int(finder_value[0]["Rank"]) < 60:
+                item_rank = int(finder_value[0]["Rank"])
+                skip_value =int(item_rank-(number/2))
+                values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
 
-        elif int(findervalue[0]["Rank"])>=60:
-            itemrank = int(findervalue[0]["Rank"])
-            skipvalue = int(itemrank-(number))
-            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
-        
+            elif int(finder_value[0]["Rank"])>=60:
+                item_rank = int(finder_value[0]["Rank"])
+                skip_value = int(item_rank-(number))
+                values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
+    
         a=0 #for changing colors
         b=1 #counter
 
         color = ['y','w']
 
         label_style = {'color': '#EEE', 'font-size': '14pt'}
-        lbl1 = sortindex
+        lbl1 = sort_index
         self.plot.setLabel("left", lbl1, **label_style)  
         self.plot.setLabel("bottom", "Ranking",**label_style)
 
         if(sort_number == 1):
-            sort_values = sorted(values, key = lambda i: i[sortindex])
+            sort_values = sorted(values, key = lambda i: i[sort_index])
         else: 
-            sort_values = reversed(sorted(values, key = lambda i: i[sortindex]))
+            sort_values = reversed(sorted(values, key = lambda i: i[sort_index]))
 
         for value in sort_values:
 
-            
-            y = float(value[sortindex])  
-
-            if value["Rank"] == findervalue[0]["Rank"]:
+            y = float(value[sort_index])  
+            if value["_id"] == finder_value[0]["_id"]:
                 bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush='b')
                 self.plot.addItem(bg) 
 
