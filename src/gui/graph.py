@@ -83,19 +83,18 @@ class Graph(QWidget):
         self.box2.clear()
         self.box2.setEnabled(False)
 
-        values = self.pcs
+        value = self.pcs[0]
         tooltip = ""
 
-        for value in values:
-            if text =="MOTHERBOARD":
-                text = "Motherboard"
+        if text =="MOTHERBOARD":
+            text = "Motherboard"
             
-            if not value[text] in self.bandict:
-                for keys in value[text]:
-                    if not keys in self.bandict:
-                        self.box2.addItem(keys)
-                        self.box2.setEnabled(True)
-  
+        if not value[text] in self.bandict:
+            for keys in value[text]:
+                if not keys in self.bandict:
+                    self.box2.addItem(keys)
+                    self.box2.setEnabled(True)
+
     def pull_bar_graph(self,text):
         self.sortindex = text
 
@@ -132,6 +131,8 @@ class Graph(QWidget):
         print(sort_number)
 
         findervalue = mycol.find({"_id": finderindex})
+
+        
         if int(findervalue[0]["Rank"]) < 20:
             itemrank = int(findervalue[0]["Rank"])
             skipvalue =int(itemrank)
@@ -146,7 +147,7 @@ class Graph(QWidget):
             itemrank = int(findervalue[0]["Rank"])
             skipvalue = int(itemrank-(number))
             values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skipvalue)
-
+        
         a=0 #for changing colors
         b=1 #counter
 
@@ -235,7 +236,3 @@ def graph_builder(pcs):
     window = Graph(pcs, motherboard_id,ram_id,gpu_id,cpu_id,ssd_id,hdd_id)
     window.show()
     app.exec_()
-
-    
-        
-        
