@@ -136,23 +136,13 @@ class Graph(QWidget):
             first_id_hex = int(str(first_id_index["_id"]),16)
             skip_value = finder_id_hex-first_id_hex
             values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value-1)
-
-        else:              
-            if int(finder_value[0]["Rank"]) < 20:
-                item_rank = int(finder_value[0]["Rank"])
-                skip_value =int(item_rank)
-                values = mycol.find({}, sort=[("Rank",1)]).limit(number)
-
-            elif int(finder_value[0]["Rank"])>=20 and int(finder_value[0]["Rank"]) < 60:
-                item_rank = int(finder_value[0]["Rank"])
-                skip_value =int(item_rank-(number/2))
-                values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
-
-            elif int(finder_value[0]["Rank"])>=60:
-                item_rank = int(finder_value[0]["Rank"])
-                skip_value = int(item_rank-(number))
-                values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
-    
+            
+        else:    
+            item_rank = int(finder_value[0]["Rank"])
+            skip_value = int(item_rank-(number/2))      
+            skip_value = max(min(skip_value, 1000), 0)
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
+            
         a=0 #for changing colors
         b=1 #counter
 
