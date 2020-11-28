@@ -156,7 +156,7 @@ class Graph(QWidget):
         label_style = {'color': '#EEE', 'font-size': '14pt'}
         lbl1 = sortindex
         self.plot.setLabel("left", lbl1, **label_style)  
-        self.plot.setLabel("bottom", "Sıralama",**label_style)
+        self.plot.setLabel("bottom", "Ranking",**label_style)
 
         if(sort_number == 1):
             sort_values = sorted(values, key = lambda i: i[sortindex])
