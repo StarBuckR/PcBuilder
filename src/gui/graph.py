@@ -145,6 +145,7 @@ class Graph(QWidget):
             finder_id_hex = int(str(finder_index),16)
             first_id_index = mycol.find_one({})
             first_id_hex = int(str(first_id_index["_id"]),16)
+
             skip_value = finder_id_hex-first_id_hex-1
             print(skip_value)
             values = mycol.find({}).limit(number).skip(skip_value)
@@ -153,6 +154,7 @@ class Graph(QWidget):
             item_rank = int(finder_value[0]["Rank"])
             skip_value = int(item_rank-(number/2)-1)  
             print(skip_value)    
+
             skip_value = max(min(skip_value, 1000), 0)
             values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
             
