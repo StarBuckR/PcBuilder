@@ -19,18 +19,12 @@ from builder import builder
 class Graph(QWidget):
     
     # Main Page
-    def __init__(self,pcs, motherboard_id,ram_id,gpu_id,cpu_id,ssd_id = None,hdd_id = None):
+    def __init__(self,pcs):
         super(QWidget, self).__init__()
         QFontDatabase.addApplicationFont("./fonts/Quantico-Bold.ttf")
         #creating main page
         self.order_bool = True
         self.pcs = pcs
-        self.motherboard_id = motherboard_id
-        self.ram_id = ram_id
-        self.gpu_id = gpu_id
-        self.cpu_id = cpu_id
-        self.ssd_id = ssd_id
-        self.hdd_id = hdd_id
 
         self.title = 'Graph'
         self.left = 0
@@ -49,26 +43,29 @@ class Graph(QWidget):
         self.layout = QVBoxLayout()        
         self.box1 = QComboBox()
         self.box2 = QComboBox()
+        self.box3 = QComboBox()
+        self.box3.currentTextChanged.connect(self.initialize_pcs_ids)
         self.box2.currentTextChanged.connect(self.pull_bar_graph)
-
-        self.bandict = ["URL","Url","Benchmark","_id","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
-
-        if self.hdd_id == None:
-            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD"]
-        elif self.ssd_id == None:
-            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD"]
-        else:
-            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD","SSD"]
-
-        self.box1.addItems(self.names)
         self.box1.currentTextChanged.connect(self.update_second_box)
 
+        self.bandict = ["URL","Url","Benchmark","_id","Ram Count","Total Price","Please Choose Part","Brand","Model","Socket","Chipset OC","Chipset","Gb","Atx"]
+ 
+        self.pcs_title = []
+        self.box3.addItem("Please Choose Title")
+
+        for pc in pcs:
+            self.box3.addItem(pc["Title"])
+            self.pcs_title.append(pc["Title"])
+       
+        self.layout.addWidget(self.box3)
         self.layout.addWidget(self.box1)
         self.layout.addWidget(self.box2)
 
         self.button = QPushButton('Toggle Sorting Order', self)
         self.layout.addWidget(self.button) 
         self.button.setEnabled(False)
+        self.box1.setEnabled(False)
+        self.box2.setEnabled(False)
 
         pg.setConfigOption('background', (37,35,35))
         self.graph = pg.PlotWidget()
@@ -77,13 +74,51 @@ class Graph(QWidget):
         self.setLayout(self.layout)
         self.show()
 
+    def initialize_pcs_ids(self, title_text):
+        for value in range(len(self.pcs_title)):
+            if self.pcs_title[value]==title_text:
+                self.motherboard_id = self.pcs[value]["Motherboard"]["_id"]
+                self.ram_id = self.pcs[value]["RAM"]["_id"]
+                self.gpu_id = self.pcs[value]["GPU"]["_id"]
+                self.cpu_id = self.pcs[value]["CPU"]["_id"]
+                print(self.gpu_id)
+
+                if self.pcs[value]["SSD"]:
+                    self.ssd_id = self.pcs[value]["SSD"]["_id"]
+                else:
+                    self.ssd_id = None
+                if self.pcs[value]["HDD"]:
+                    self.hdd_id = self.pcs[value]["HDD"]["_id"]
+                else:
+                    self.hdd_id = None
+                self.number = value
+
+        self.box1.clear()
+        if self.hdd_id == None:
+            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","SSD"]
+        elif self.ssd_id == None:
+            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD"]
+        else:
+            self.names = ["Please Choose Part","MOTHERBOARD","RAM","GPU","CPU","HDD","SSD"]
+
+        self.box1.addItems(self.names)
+        self.box1.setEnabled(True)
+        self.box1.setCurrentText("Please Choose Part")
+        self.box2.clear()
+        self.layout.removeWidget(self.graph)
+        self.graph = pg.PlotWidget()
+        self.layout.addWidget(self.graph)
+                
     def update_second_box(self):
         self.database = self.box1.currentText()
         text = self.box1.currentText()
         self.box2.clear()
         self.box2.setEnabled(False)
 
-        value = self.pcs[0]
+        if self.number == None:
+            value = self.pcs[0]
+        else: 
+            value = self.pcs[self.number]
         tooltip = ""
 
         if text =="MOTHERBOARD":
@@ -102,7 +137,6 @@ class Graph(QWidget):
             pass
         else:
             self.layout.removeWidget(self.graph)
-
         if self.database == "MOTHERBOARD":
             self.finder_index = self.motherboard_id
         elif self.database == "RAM":
@@ -135,24 +169,14 @@ class Graph(QWidget):
             first_id_index = mycol.find_one({})
             first_id_hex = int(str(first_id_index["_id"]),16)
             skip_value = finder_id_hex-first_id_hex
-            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value-1)
-
-        else:              
-            if int(finder_value[0]["Rank"]) < 20:
-                item_rank = int(finder_value[0]["Rank"])
-                skip_value =int(item_rank)
-                values = mycol.find({}, sort=[("Rank",1)]).limit(number)
-
-            elif int(finder_value[0]["Rank"])>=20 and int(finder_value[0]["Rank"]) < 60:
-                item_rank = int(finder_value[0]["Rank"])
-                skip_value =int(item_rank-(number/2))
-                values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
-
-            elif int(finder_value[0]["Rank"])>=60:
-                item_rank = int(finder_value[0]["Rank"])
-                skip_value = int(item_rank-(number))
-                values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
-    
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
+            
+        else:    
+            item_rank = int(finder_value[0]["Rank"])
+            skip_value = int(item_rank-(number/2))      
+            skip_value = max(min(skip_value, 1000), 0)
+            values = mycol.find({}, sort=[("Rank",1)]).limit(number).skip(skip_value)
+            
         a=0 #for changing colors
         b=1 #counter
 
@@ -171,20 +195,30 @@ class Graph(QWidget):
         for value in sort_values:
 
             y = float(value[sort_index])  
-            if value["_id"] == finder_value[0]["_id"]:
-                bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush='b')
-                self.plot.addItem(bg) 
+            for titlenumber in range(len(self.pcs_title)):
+                colors = ['b','r','g']
+                if database == "MOTHERBOARD":
+                    if value["_id"] == self.pcs[titlenumber]["Motherboard"]["_id"]:
+                        bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=colors[titlenumber])
+                        self.plot.addItem(bg) 
+                    else:
+                        bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
+                        self.plot.addItem(bg) 
+                else:
+                    if database != None:
+                        if value["_id"] == self.pcs[titlenumber][database]["_id"]:
+                            bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=colors[titlenumber])
+                            self.plot.addItem(bg) 
+                        else:
+                            bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
+                            self.plot.addItem(bg)
 
-            else:
-                bg = pg.BarGraphItem(x=[b], height=y, width=0.3, brush=color[a])
-                self.plot.addItem(bg) 
-
-            tooltip = ""
-            for key in value:
-                if not key in self.bandict:
-                    tooltip += key + ": " + str(value[key]) + "\n"
-            bg.setToolTip(tooltip.strip())        
-            self.plot.addItem(bg)  
+                tooltip = ""
+                for key in value:
+                    if not key in self.bandict:
+                        tooltip += key + ": " + str(value[key]) + "\n"
+                bg.setToolTip(tooltip.strip())        
+                self.plot.addItem(bg)  
             if a == 1:
                 if database != "MOTHERBOARD":
                     text = pg.TextItem(text=value["Brand"]+" "+value["Model"] , color=(200, 200, 200),angle=0)
@@ -221,21 +255,6 @@ class Graph(QWidget):
         self.plot.getViewBox().invertX(self.order_bool)
 
 def graph_builder(pcs):
-    motherboard_id = pcs[0]["Motherboard"]["_id"]
-    ram_id = pcs[0]["RAM"]["_id"]
-    gpu_id = pcs[0]["GPU"]["_id"]
-    cpu_id = pcs[0]["CPU"]["_id"]
-
-    if pcs[0]["SSD"]:
-        ssd_id = pcs[0]["SSD"]["_id"]
-    else:
-        ssd_id = None
-
-    if pcs[0]["HDD"]:
-        hdd_id = pcs[0]["HDD"]["_id"]
-    else:
-        hdd_id = None
-
-    window = Graph(pcs, motherboard_id,ram_id,gpu_id,cpu_id,ssd_id,hdd_id)
+    window = Graph(pcs)
     window.show()
     app.exec_()
